@@ -20,7 +20,9 @@ app.use(cors()); // Permite conexiones desde el Frontend (React)
 //Importar y Usar las Rutas
 //Aquí conectamos la ruta
 const userRoutes = require('./routes/userRoutes');
+const habitRoutes = require('./routes/habitRoutes');
 app.use('/api/users', userRoutes);
+app.use('/api/habits', habitRoutes);
 
 //Arranca el servidor
 app.listen(PORT, () => {
