@@ -5,14 +5,19 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     
-    // Gamificación (Punto 4 de tu lista)
+    // Gamificación
     puntos: { type: Number, default: 0 },
     nivel: { type: Number, default: 1 },
 
-    // Personalización (Punto 5 de tu lista)
+    // --- NUEVO: Lista de Amigos ---
+    amigos: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' 
+    }],
+    // -----------------------------
+
     preferencias: {
-        tema: { type: String, enum: ['claro', 'oscuro'], default: 'claro' },
-        colorPrincipal: { type: String, default: '#blue' } // Opcional
+        tema: { type: String, enum: ['claro', 'oscuro'], default: 'claro' }
     }
 }, { timestamps: true });
 
