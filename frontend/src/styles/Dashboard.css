@@ -1,19 +1,49 @@
+:root {
+    /* ----------------------------------------------------- */
+    /* === PALETA DE COLORES Y VARIABLES GLOBALES === */
+    /* ----------------------------------------------------- */
+    
+    /* Colores Principales (Azul Sereno) */
+    --color-primary-light: #4a6c9a;  /* Azul principal claro (Botones, Iconos, Progreso) */
+    --color-primary-dark: #37557a;   /* Azul principal oscuro (Hover, Sombra) */
+
+    /* Fondos y Degradados Base */
+    --color-bg-light: #f0f4f8;       /* Fondo base claro */
+    --color-bg-dark: #d9e2ec;        /* Fondo base oscuro/degradado */
+    --color-card-bg: white;
+    
+    /* Texto */
+    --color-heading: #2d3748;
+    --color-text-subtle: #718096;
+
+    /* Degradados Reutilizables */
+    --gradient-bg: linear-gradient(135deg, var(--color-bg-light) 0%, var(--color-bg-dark) 100%);
+    --gradient-primary: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary-dark) 100%);
+    
+    /* Degradados Pomodoro (Ajustado a un azul/morado más claro para 'work') */
+    --gradient-work: linear-gradient(135deg, #6a82fb 0%, #c0c8ff 100%); 
+    --gradient-break: linear-gradient(135deg, #8BC34A 0%, #4CAF50 100%);
+
+    /* Sombras */
+    --shadow-base: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* === BASE & RESET === */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Base: Tonos grises suaves */
 .dashboard-container {
     min-height: 100vh;
-    /* Degradado más suave y sereno: Gris claro a un azul/gris ligeramente más oscuro */
-    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    background: var(--gradient-bg);
     padding: 30px 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Header */
+/* === HEADER === */
 .dashboard-header {
     display: flex;
     justify-content: space-between;
@@ -25,20 +55,20 @@
 }
 
 .dashboard-header h1 {
-    color: #2d3748;
+    color: var(--color-heading);
     font-size: 32px;
     margin-bottom: 5px;
     font-weight: 700;
 }
 
 .dashboard-header .date {
-    color: #718096;
+    color: var(--color-text-subtle);
     font-size: 14px;
     text-transform: capitalize;
 }
 
-/* Botón de Perfil con Icono o Iniciales */
-.profile-link { /* Nuevo contenedor para el enlace */
+/* Botón de Perfil */
+.profile-link {
     position: relative;
     text-decoration: none;
     cursor: pointer;
@@ -48,11 +78,10 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    /* Fondo con degradado sutil o color sólido */
-    background: #4a6c9a; /* Color secundario sereno */
-    color: white; /* Color de las iniciales */
-    border: 2px solid #e2e8f0;
-    font-size: 18px; /* Tamaño de las iniciales */
+    background: var(--color-primary-light);
+    color: white;
+    border: 2px solid var(--color-bg-dark);
+    font-size: 18px;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -63,12 +92,12 @@
 }
 
 .profile-btn:hover {
-    background: #37557a;
+    background: var(--color-primary-dark);
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Grid Layout */
+/* === GRID & CARDS BASE === */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -77,35 +106,33 @@
     margin: 0 auto 30px;
 }
 
-/* Tarjetas Base */
 .card {
-    background: white;
+    background: var(--color-card-bg);
     border-radius: 16px;
     padding: 28px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-base);
     transition: all 0.3s ease;
 }
 
 .card:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
 }
 
 .card h2 {
-    color: #2d3748;
+    color: var(--color-heading);
     font-size: 20px;
     margin-bottom: 20px;
     font-weight: 600;
 }
 
-/* Pomodoro Card - Colores Terrosos/Suaves */
+/* === POMODORO CARD === */
 .pomodoro-card {
     grid-column: 1;
 }
 
 .timer {
-    /* Degradado Terroso/Verde Sereno */
-    background: linear-gradient(135deg, #a8c0ff 0%, #373b44 100%); 
+    background: var(--gradient-work); /* Usa la variable de degradado de trabajo */
     border-radius: 12px;
     padding: 30px;
     text-align: center;
@@ -115,8 +142,7 @@
 }
 
 .timer.break {
-    /* Degradado de Descanso Suave (Verde Menta) */
-    background: linear-gradient(135deg, #8BC34A 0%, #4CAF50 100%);
+    background: var(--gradient-break); /* Usa la variable de degradado de descanso */
 }
 
 .timer-display {
@@ -127,12 +153,32 @@
     font-family: 'Courier New', monospace;
     margin-bottom: 8px;
 }
-/* ... otros estilos del timer ... */
 
-/* Botones con los nuevos colores primarios serenos */
+.timer-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* === BUTTONS === */
+button {
+    cursor: pointer;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
 .btn-primary {
-    /* Nuevo Degradado Primario: Azul más apagado y elegante */
-    background: linear-gradient(135deg, #4a6c9a 0%, #37557a 100%); 
+    background: var(--gradient-primary); 
     color: white;
     box-shadow: 0 4px 15px rgba(74, 108, 154, 0.4);
 }
@@ -143,111 +189,333 @@
 }
 
 .btn-secondary {
-    background: #f0f4f8; /* Gris claro de fondo */
-    color: #4a6c9a; /* Color de texto que coincide con el primario */
-    border: 2px solid #d9e2ec;
+    background: var(--color-bg-light); 
+    color: var(--color-primary-light); 
+    border: 2px solid var(--color-bg-dark);
 }
 
 .btn-secondary:hover {
-    background: #e2e8f0;
-    border-color: #4a6c9a;
+    background: var(--color-bg-dark);
+    border-color: var(--color-primary-light);
 }
 
-/* Progress Card - Color de Progreso Sereno */
+/* === PROGRESS CARD === */
 .progress-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-/* ... estilos de progreso ... */
+.progress-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.progress-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.progress-circle svg {
+    transform: rotate(-90deg); /* Inicia el trazo arriba */
+}
+
+.progress-background, .progress-fill {
+    fill: none;
+    stroke-width: 10;
+}
+
+.progress-background {
+    stroke: var(--color-bg-dark); /* Color de fondo del círculo */
+}
+
+.progress-fill {
+    stroke: url(#progressGradient); /* Usa el degradado SVG definido en el JSX */
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.5s ease-in-out;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
 
 .percentage {
     font-size: 32px;
     font-weight: 700;
-    color: #4a6c9a; /* Color de texto que coincide con el primario */
+    color: var(--color-primary-light);
 }
 
-/* Tasks Card */
-/* ... estilos de la lista de tareas ... */
+.progress-text .label {
+    display: block;
+    font-size: 12px;
+    color: var(--color-text-subtle);
+}
+
+.progress-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat {
+    background: var(--color-bg-light);
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-heading);
+    display: block;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--color-text-subtle);
+}
+
+/* === TASKS CARD === */
+.tasks-card {
+    grid-column: 1 / -1; /* Ocupa todo el ancho en el grid */
+}
+
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--color-bg-dark);
+    border-left: 5px solid transparent;
+    transition: all 0.2s ease;
+}
 
 .task-item:hover {
-    background: #f0f4f8; /* Fondo muy sutil al pasar el mouse */
-    border-left-color: #4a6c9a;
+    background: var(--color-bg-light); 
+    border-left-color: var(--color-primary-light);
 }
 
 .task-item.completed {
-    background: #f8fff0; /* Fondo de completado color verde muy suave */
+    background: #f8fff0; 
+    border-left-color: #8BC34A;
+}
+
+.task-content {
+    flex-grow: 1;
+    margin: 0 15px;
+}
+
+.task-title {
+    font-weight: 500;
+    color: var(--color-heading);
+    margin-bottom: 2px;
+    font-size: 16px;
+}
+
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    color: var(--color-text-subtle);
+}
+
+/* Checkbox personalizado */
+.task-checkbox {
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+.task-checkbox input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.task-checkbox label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--color-primary-light);
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--color-card-bg);
+    transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .task-checkbox input:checked + label {
-    /* Mismo degradado primario para el checkmark */
-    background: linear-gradient(135deg, #4a6c9a 0%, #37557a 100%); 
-    border-color: #4a6c9a;
+    background: var(--gradient-primary); 
+    border-color: var(--color-primary-light);
 }
 
-/* Actualizar categorías con colores serenos/pastel */
-.category-salud {
-    background: #fff0f0;
-    color: #cc5252;
+.task-checkbox input:checked + label::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-.category-bienestar {
-    background: #e6f7ff;
-    color: #3385ff;
+.task-badge {
+    font-size: 14px;
+    color: var(--color-primary-light);
 }
 
-.category-aprendizaje {
-    background: #fff8e1;
-    color: #ffb300;
+/* === CATEGORIES === */
+.task-category {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.category-trabajo {
-    background: #f0e6ff;
-    color: #8c5cdb;
+.category-salud { background: #fff0f0; color: #cc5252; }
+.category-bienestar { background: #e6f7ff; color: #3385ff; }
+.category-aprendizaje { background: #fff8e1; color: #ffb300; }
+.category-trabajo { background: #f0e6ff; color: #8c5cdb; }
+
+
+/* === QUICK STATS === */
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 20px auto;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 20px 15px;
-  }
+.stat-card {
+    background: var(--color-card-bg);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow-base);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.2s ease;
+}
 
-  .dashboard-header {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 30px;
-  }
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
 
-  .dashboard-header h1 {
+.stat-icon {
+    font-size: 28px;
+}
+
+.stat-value {
     font-size: 24px;
-  }
+    font-weight: 700;
+    color: var(--color-heading);
+}
 
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
+.stat-name {
+    font-size: 12px;
+    color: var(--color-text-subtle);
+}
 
-  .pomodoro-card {
-    grid-column: 1;
-  }
+/* --- NUEVOS ESTILOS DEL FORMULARIO DE TAREAS --- */
 
-  .progress-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
+.new-task-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--color-bg-dark); 
+}
 
-  .progress-stats {
-    width: 100%;
-    justify-content: space-around;
-  }
+.new-task-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--color-bg-dark);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
 
-  .timer-display {
-    font-size: 42px;
-  }
+.new-task-form input[type="text"]:focus {
+    border-color: var(--color-primary-light);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 108, 154, 0.2);
+}
 
-  .quick-stats {
-    grid-template-columns: 1fr;
-  }
+.new-task-form select {
+    padding: 10px 15px;
+    border: 1px solid var(--color-bg-dark);
+    border-radius: 8px;
+    background-color: var(--color-card-bg);
+    color: var(--color-heading);
+    cursor: pointer;
+}
+
+.new-task-form .btn-primary {
+    padding: 10px 15px;
+    font-size: 14px;
+    white-space: nowrap; 
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 20px 15px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 24px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .pomodoro-card {
+        grid-column: 1;
+    }
+
+    .progress-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .progress-stats {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .timer-display {
+        font-size: 42px;
+    }
+
+    .quick-stats {
+        grid-template-columns: 1fr;
+    }
 }

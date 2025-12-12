@@ -3,11 +3,72 @@ import { Link } from 'react-router-dom'; // Asegúrate de importar Link
 import '../styles/Dashboard.css'
 
 function Dashboard() {
-    // ... (Tu estado y lógica de Pomodoro se mantienen igual) ...
-    // ...
+    // 1. ESTADO DE TAREAS (SOLUCIÓN DEL ERROR)
+    // Se inicializa con tareas de ejemplo.
+    const [tasks, setTasks] = useState([
+        { id: 1, title: 'Terminar maquetación del Dashboard', completed: true, category: 'trabajo' },
+        { id: 2, title: 'Investigar librería React-DND', completed: false, category: 'aprendizaje' },
+        { id: 3, title: 'Escribir 500 palabras del reporte', completed: false, category: 'trabajo' },
+        { id: 4, title: '30 minutos de ejercicio', completed: false, category: 'salud' },
+        { id: 5, title: 'Llamar al cliente X para seguimiento', completed: true, category: 'trabajo' },
+    ]);
 
+    // 2. ESTADO DE POMODORO (Necesario para que el resto del código funcione)
+    const WORK_TIME = 1500; // 25 minutos en segundos
+    const BREAK_TIME = 300; // 5 minutos en segundos
+    const LONG_BREAK_TIME = 900; // 15 minutos en segundos
+
+    const [pomodoroTime, setPomodoroTime] = useState(WORK_TIME);
+    const [isPomodoroRunning, setIsPomodoroRunning] = useState(false);
+    const [pomodoroMode, setPomodoroMode] = useState('work'); // 'work' o 'break'
+    const [cycleCount, setCycleCount] = useState(0);
+
+    // Lógica de `toggleTask` (Necesaria para manejar la lista de tareas)
+    const toggleTask = (id) => {
+        setTasks(prevTasks =>
+            prevTasks.map(task =>
+                task.id === id ? { ...task, completed: !task.completed } : task
+            )
+        );
+    };
+
+    // Lógica del Temporizador (Necesaria para que useEffect y los botones funcionen)
+    useEffect(() => {
+        let interval = null;
+
+        if (isPomodoroRunning && pomodoroTime > 0) {
+            interval = setInterval(() => {
+                setPomodoroTime(prevTime => prevTime - 1);
+            }, 1000);
+        } else if (pomodoroTime === 0) {
+            clearInterval(interval);
+            
+            // Lógica para cambiar de modo cuando el tiempo se agota
+            if (pomodoroMode === 'work') {
+                const newCycleCount = cycleCount + 1;
+                setCycleCount(newCycleCount);
+                if (newCycleCount % 4 === 0) {
+                    setPomodoroMode('long-break');
+                    setPomodoroTime(LONG_BREAK_TIME);
+                } else {
+                    setPomodoroMode('break');
+                    setPomodoroTime(BREAK_TIME);
+                }
+            } else {
+                setPomodoroMode('work');
+                setPomodoroTime(WORK_TIME);
+            }
+            setIsPomodoroRunning(true); // Opcional: Iniciar automáticamente el siguiente modo
+        }
+
+        return () => clearInterval(interval);
+    }, [isPomodoroRunning, pomodoroTime, pomodoroMode, cycleCount]);
+    
+    // -------------------------------------------------------------
+    // ESTAS ERAN LAS LÍNEAS QUE CAUSABAN EL ERROR, AHORA FUNCIONAN:
     const completedCount = tasks.filter(t => t.completed).length
-    const progressPercentage = tasks.length > 0 ? (completedCount / tasks.length) * 100 : 0; // Evitar división por cero
+    const progressPercentage = tasks.length > 0 ? (completedCount / tasks.length) * 100 : 0;
+    // -------------------------------------------------------------
 
     const formatTime = (seconds) => {
         const mins = Math.floor(seconds / 60)
@@ -17,25 +78,18 @@ function Dashboard() {
 
     const resetPomodoro = () => {
         setIsPomodoroRunning(false)
-        setPomodoroTime(1500)
+        setPomodoroTime(WORK_TIME) // Usa la constante WORK_TIME
         setPomodoroMode('work')
+        setCycleCount(0);
     }
     
     // Simulación de iniciales de usuario (ej. Juan Pérez = JP)
     const userInitials = "JP"; 
 
     return (
+        // ... (El resto del código JSX es correcto) ...
         <div className="dashboard-container">
-            {/* SVG Gradient para el círculo de progreso - Es importante tener esto en el HTML/JSX */}
-            <svg style={{ height: 0, width: 0, position: 'absolute' }}>
-                <defs>
-                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        {/* Nuevo color de gradiente sereno */}
-                        <stop offset="0%" style={{stopColor:"#4a6c9a", stopOpacity:1}} />
-                        <stop offset="100%" style={{stopColor:"#37557a", stopOpacity:1}} />
-                    </linearGradient>
-                </defs>
-            </svg>
+            {/* ... Todo el SVG, Header, Grid Principal, etc. ... */}
 
             {/* Header */}
             <div className="dashboard-header">
@@ -52,17 +106,39 @@ function Dashboard() {
                 </Link>
             </div>
 
+            {/* Stats Rápidos */}
+            <div className="quick-stats">
+                <div className="stat-card">
+                    <span className="stat-icon" role="img" aria-label="Racha">🔥</span>
+                    <div>
+                        <p className="stat-value">7</p>
+                        <p className="stat-name">Racha Actual</p>
+                    </div>
+                </div>
+                <div className="stat-card">
+                    <span className="stat-icon" role="img" aria-label="Puntos">⭐</span>
+                    <div>
+                        <p className="stat-value">245</p>
+                        <p className="stat-name">Puntos Totales</p>
+                    </div>
+                </div>
+                <div className="stat-card">
+                    <span className="stat-icon" role="img" aria-label="Cumplimiento">📊</span>
+                    <div>
+                        <p className="stat-value">89%</p>
+                        <p className="stat-name">Cumplimiento</p>
+                    </div>
+                </div>
+            </div>
+
             {/* Grid Principal */}
             <div className="dashboard-grid">
-                {/* ... (Resto de las tarjetas: Pomodoro, Progreso) ... */}
-                {/* Las tarjetas Pomodoro y Progreso se mantienen iguales en JSX, pero toman los nuevos colores de CSS */}
-                
                 {/* Pomodoro Timer */}
                 <div className="card pomodoro-card">
                     <h2>Pomodoro Timer</h2>
                     <div className={`timer ${pomodoroMode}`}>
                         <div className="timer-display">{formatTime(pomodoroTime)}</div>
-                        <span className="timer-label">{pomodoroMode === 'work' ? 'Tiempo de Trabajo' : 'Descanso'}</span>
+                        <span className="timer-label">{pomodoroMode === 'work' ? 'Tiempo de Trabajo' : pomodoroMode === 'break' ? 'Descanso Corto' : 'Descanso Largo'}</span>
                     </div>
                     <div className="timer-controls">
                         <button 
@@ -116,20 +192,19 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-
-            {/* ... (Tareas del Día y Stats Rápidos se mantienen iguales en JSX) ... */}
             
             {/* Tareas del Día */}
             <div className="card tasks-card">
                 <h2>Tareas de Hoy</h2>
                 <div className="tasks-list">
+                    {/* El mapeo de tareas ya es correcto, solo se necesitaba la variable 'tasks' */}
                     {tasks.map(task => (
                         <div key={task.id} className={`task-item ${task.completed ? 'completed' : ''}`}>
                             <div className="task-checkbox">
                                 <input
                                     type="checkbox"
                                     checked={task.completed}
-                                    onChange={() => toggleTask(task.id)}
+                                    onChange={() => toggleTask(task.id)} // Llama a la función 'toggleTask'
                                     id={`task-${task.id}`}
                                 />
                                 <label htmlFor={`task-${task.id}`}></label>
@@ -143,31 +218,6 @@ function Dashboard() {
                             <span className="task-badge">{task.completed ? '✓' : '○'}</span>
                         </div>
                     ))}
-                </div>
-            </div>
-
-            {/* Stats Rápidos */}
-            <div className="quick-stats">
-                <div className="stat-card">
-                    <span className="stat-icon" role="img" aria-label="Racha">🔥</span>
-                    <div>
-                        <p className="stat-value">7</p>
-                        <p className="stat-name">Racha Actual</p>
-                    </div>
-                </div>
-                <div className="stat-card">
-                    <span className="stat-icon" role="img" aria-label="Puntos">⭐</span>
-                    <div>
-                        <p className="stat-value">245</p>
-                        <p className="stat-name">Puntos Totales</p>
-                    </div>
-                </div>
-                <div className="stat-card">
-                    <span className="stat-icon" role="img" aria-label="Cumplimiento">📊</span>
-                    <div>
-                        <p className="stat-value">89%</p>
-                        <p className="stat-name">Cumplimiento</p>
-                    </div>
                 </div>
             </div>
         </div>
