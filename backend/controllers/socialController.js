@@ -1,5 +1,5 @@
 // backend/controllers/socialController.js
-const User = require('../models/User');
+const User = require('../models/user.js');
 const Habit = require('../models/habit');
 
 // @desc    Agregar un amigo por su correo

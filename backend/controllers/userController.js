@@ -1,7 +1,7 @@
 // backend/controllers/userController.js
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const User = require('../models/User'); // Importamos el modelo
+const User = require('../models/user.js'); // Importamos el modelo
 
 // @desc    Registrar un nuevo usuario
 // @route   POST /api/users

@@ -7,21 +7,16 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--bg-dark);
   color: var(--text);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #root {
   width: 100%;
-  max-width: 1280px;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
 /* Estilos para Formularios (Login/Registro) */
@@ -35,7 +30,7 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-input {
+input:not(.login-container input) {
   width: 90%;
   padding: 10px;
   margin: 10px 0;
