@@ -21,9 +21,11 @@ app.use(cors()); // Permite conexiones desde el Frontend (React)
 //Aquí conectamos la ruta
 const userRoutes = require('./routes/userRoutes');
 const habitRoutes = require('./routes/habitRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 const socialRoutes = require("./routes/socialRoutes");
 app.use('/api/users', userRoutes);
 app.use('/api/habits', habitRoutes);
+app.use('/api/tasks', taskRoutes);
 app.use('/api/social', socialRoutes);
 
 //Arranca el servidor
