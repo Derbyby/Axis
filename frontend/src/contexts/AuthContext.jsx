@@ -30,8 +30,19 @@ export function AuthProvider({ children }) {
     setIsAuthenticated(false)
   }
 
+  const updateUserLocal = (newUserData) => {
+    // Combina los datos actuales con los nuevos
+    const updatedUser = { ...user, ...newUserData };
+
+    // 1. Actualiza el estado de React
+    setUser(updatedUser);
+
+    // 2. Actualiza el almacenamiento local (persistencia)
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, isAuthenticated, login, logout, updateUserLocal }}>
       {children}
     </AuthContext.Provider>
   )

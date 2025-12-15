@@ -1,0 +1,264 @@
+/* Profile.css */
+
+.profile-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-nav {
+    margin-bottom: 20px;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #6A994E; /* Verde marca */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.back-link:hover { text-decoration: underline; }
+
+/* Tarjeta Principal */
+.profile-card {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 40px;
+    text-align: center;
+}
+
+/* Cabecera */
+.profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    background-color: #386641; /* Verde oscuro */
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px auto;
+    border: 4px solid #A7C957;
+}
+
+.profile-name { margin: 0; font-size: 1.8rem; color: #333; }
+.profile-email { margin: 5px 0; color: #888; }
+.profile-title {
+    display: inline-block;
+    background-color: #F2E8CF; /* Color suave */
+    color: #BC4749; /* Color de acento rojizo */
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Barra de XP */
+.xp-section {
+    margin: 30px 0;
+    text-align: left;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+}
+.xp-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+.xp-bar-bg {
+    width: 100%;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #A7C957, #6A994E);
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+}
+.xp-next {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* Estadísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.stat-box {
+    background-color: #f4f8f1;
+    padding: 15px;
+    border-radius: 10px;
+}
+.stat-emoji { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+.stat-box h3 { margin: 0; font-size: 1.4rem; color: #386641; }
+.stat-box p { margin: 0; font-size: 0.8rem; color: #666; }
+
+.divider { border: 0; border-top: 1px solid #eee; margin: 30px 0; }
+
+/* Medallas */
+.badges-section h2 { text-align: left; color: #333; margin-bottom: 20px; }
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+.badge-card {
+    border: 2px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    position: relative;
+    transition: transform 0.2s;
+}
+.badge-card.unlocked {
+    border-color: #A7C957;
+    background-color: #fdfffc;
+}
+.badge-card.locked {
+    background-color: #f5f5f5;
+    opacity: 0.7;
+    filter: grayscale(100%); /* Efecto gris si está bloqueada */
+}
+.badge-icon { font-size: 2rem; margin-bottom: 10px; }
+.badge-info h4 { margin: 0 0 5px 0; font-size: 0.9rem; }
+.badge-info p { margin: 0; font-size: 0.7rem; color: #777; }
+.lock-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Botones */
+.account-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.btn-edit, .btn-logout {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+}
+.btn-edit {
+    background-color: #f0f0f0;
+    color: #333;
+}
+.btn-edit:hover { background-color: #e0e0e0; }
+
+.btn-logout {
+    background-color: #BC4749; /* Rojo suave */
+    color: white;
+}
+.btn-logout:hover { background-color: #a03537; }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .xp-info { font-size: 0.9rem; }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Oscurece el fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+/* 2. Estilo de la ventana emergente (modal) */
+.modal {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px; /* Tamaño máximo de la ventana */
+    animation: fadeIn 0.3s ease-out; /* Efecto de aparición suave */
+}
+
+/* 3. Estilos de formulario dentro del modal (coherencia visual) */
+.modal h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* 4. Contenedor de botones para alineación */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 10px;
+    margin-top: 25px;
+}
+
+/* 5. Reutilizar las clases de botón existentes */
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: #2a9d8f; /* Color primario coherente con el avatar */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Opcional: animación de aparición */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}

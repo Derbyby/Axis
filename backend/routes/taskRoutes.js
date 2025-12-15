@@ -13,6 +13,7 @@ router.get('/', protect, async (req, res) => {
         res.status(200).json(tasks);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener tareas', error: error.message });
+        console.error("Error al obtener tareas:", error);
     }
 });
 
@@ -46,11 +47,13 @@ router.route('/:id').put(protect, async (req, res) => {
 
         if (!task) {
             return res.status(404).json({ message: 'Tarea no encontrada' });
+            console.error("Tarea no encontrada para ID:", req.params.id);
         }
 
         // Verificar que la tarea sea del usuario logueado
         if (task.user.toString() !== req.user.id) {
             return res.status(401).json({ message: 'No autorizado' });
+            console.error("Usuario no autorizado para tarea ID:", req.params.id);
         }
 
         // Cambiar estado
@@ -96,6 +99,7 @@ router.route('/:id').put(protect, async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error al actualizar', error: error.message });
+        console.error("Error al actualizar tarea:", error);
     }
 });
 
@@ -110,6 +114,7 @@ router.delete('/:id', protect, async (req, res) => {
         res.status(200).json({ id: req.params.id });
     } catch (error) {
         res.status(500).json({ message: 'Error al borrar' });
+        console.error("Error al borrar tarea:", error);
     }
 });
 

@@ -66,6 +66,9 @@ const loginUser = async (req, res) => {
                 _id: user.id,
                 nombre: user.nombre,
                 email: user.email,
+                puntos: user.puntos || 0, // <-- Incluir Puntos
+                racha: user.racha || 0,   // <-- Incluir Racha
+                createdAt: user.createdAt,
                 token: generateToken(user._id)
             });
         } else {

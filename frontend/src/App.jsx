@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import Dashboard from './pages/Dashboard'
 import { Link } from 'react-router-dom';
+import Profile from './pages/Profile';
+import Community from './components/Community';
 
 function App() {
   return (
@@ -27,6 +29,10 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+
+            <Route path="/profile" element={<Profile />} />
+
+            <Route path="/community" element={<Community />} />
           </Routes>
         </div>
       </AuthProvider>

@@ -9,7 +9,13 @@ const userSchema = mongoose.Schema({
     puntos: { type: Number, default: 0 },
     nivel: { type: Number, default: 1 },
 
-    // --- NUEVO: Lista de Amigos ---
+    // --- CAMPOS DE RACHA AÑADIDOS ---
+    racha: { type: Number, default: 0 }, // Días de racha actual
+    rachaMasLarga: { type: Number, default: 0 }, // Récord
+    ultimaCompletada: { type: Date, default: null }, // Fecha de la última acción completada para calcular la racha
+    // ---------------------------------
+
+    // --- Lista de Amigos ---
     amigos: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User' 
