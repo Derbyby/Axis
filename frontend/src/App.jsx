@@ -30,9 +30,17 @@ function App() {
               } 
             />
 
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } />
 
-            <Route path="/community" element={<Community />} />
+            <Route path="/community" element={
+              <ProtectedRoute>
+                  <Community />
+                </ProtectedRoute>
+                } />
           </Routes>
         </div>
       </AuthProvider>

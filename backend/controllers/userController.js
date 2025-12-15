@@ -87,7 +87,51 @@ const generateToken = (id) => {
     });
 };
 
+const updateUser = async (req, res) => {
+    const userId = req.params.id;
+    const { puntos } = req.body; 
+
+    // 1. Verificar que el usuario del token sea el dueño del perfil
+    if (req.user.id !== userId) {
+        return res.status(401).json({ message: 'No autorizado para actualizar este perfil.' });
+    }
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado.' });
+        }
+
+        // Solo permitimos actualizar puntos o nivel de forma controlada
+        if (puntos !== undefined) {
+            user.puntos = puntos;
+            user.nivel = Math.floor(user.puntos / 100) + 1; // Recalcula nivel
+        }
+        
+        // Aquí puedes agregar lógica para actualizar otros campos si lo deseas
+
+        const updatedUser = await user.save();
+        
+        // Devolvemos solo la información pública
+        res.status(200).json({
+            _id: updatedUser.id,
+            nombre: updatedUser.nombre,
+            email: updatedUser.email,
+            puntos: updatedUser.puntos,
+            nivel: updatedUser.nivel,
+            racha: updatedUser.racha,
+            // NOTA: No devolver password ni token
+        });
+
+    } catch (error) {
+        console.error("Error al actualizar usuario:", error);
+        res.status(500).json({ message: 'Error interno al actualizar usuario.', error: error.message });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
+    updateUser
 };
