@@ -1,89 +1,294 @@
 /* src/styles/Community.css */
+
+/* === CONTENEDOR PRINCIPAL === */
 .community-container {
-    max-width: 800px;
-    margin: 40px auto;
+    max-width: 1000px; /* Hacemos más ancho el contenedor para que quepan las columnas */
+    margin: 30px auto;
     padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.search-form {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.search-form input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-.search-form button {
-    background-color: #2a9d8f;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #4a6c9a;
+    text-decoration: none;
     font-weight: 600;
 }
 
-.search-result {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px dashed #2a9d8f;
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* === LAYOUT DE GRID (COLUMNAS) === */
+.community-grid-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Izquierda más ancha que derecha */
+    gap: 25px;
+    align-items: start; /* Alineación superior */
+}
+
+/* Responsivo: En celular se vuelve una sola columna */
+@media (max-width: 768px) {
+    .community-grid-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* === TARJETAS GENERALES === */
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f4f8;
+}
+
+/* Títulos de las tarjetas */
+.card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #2d3748;
+    border-bottom: 2px solid #f0f4f8;
+    padding-bottom: 10px;
+}
+
+/* === FORMULARIO DE BÚSQUEDA === */
+.search-form {
+    display: flex;       
+    gap: 10px;          
+    align-items: center; /* Alineación vertical al centro */
+    width: 100%;        
+}
+
+.search-form input {
+    flex: 2;            /* Ocupa 2/3 */
+    
+    /* PROPIEDADES CLAVE PARA ALINEACIÓN */
+    height: 42px;       
+    margin: 0;          /* Elimina márgenes fantasma */
+    box-sizing: border-box; /* El borde se incluye dentro de los 42px */
+    
+    padding: 0 15px;    
+    border: 1px solid #d9e2ec; /* Borde gris suave */
     border-radius: 8px;
+    outline: none;
+    
+    /* Estilo visual (Ajustado a negro oscuro como en tu foto si prefieres, o blanco limpio) */
+    background-color: #1a202c; /* Fondo oscuro (según tu imagen) */
+    color: white;
+    font-size: 0.95rem;
 }
 
-.result-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.result-card button {
-    background-color: #ff9f1c;
+.search-form button {
+    flex: 1;            /* Ocupa 1/3 */
+    
+    /* PROPIEDADES CLAVE PARA ALINEACIÓN */
+    height: 42px;       
+    margin: 0;          /* Elimina márgenes fantasma */
+    box-sizing: border-box; /* Misma lógica de caja */
+    
+    padding: 0;         
+    border-radius: 8px;
+    background-color: #2a9d8f;
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Ranking */
-.ranking-list {
+.search-form button:hover {
+    background-color: #21867a;
+}
+
+/* === LISTAS DE RESULTADOS Y SOLICITUDES === */
+.search-results-list, .requests-list, .friends-list {
     margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.request-item {
+    display: flex;
+    flex-direction: row; /* Fila obligatoria */
+    justify-content: space-between; /* Texto a la izq, Botón a la der */
+    align-items: center; 
+    padding: 12px 15px;
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Asegurar que el nombre se vea NEGRO */
+.request-item strong {
+    color: #1a202c; /* Negro oscuro */
+    font-size: 1rem;
+    display: block; /* Para que ocupe su propia línea */
+}
+
+.request-item div {
+    color: #4a5568; /* Gris oscuro para el "Nivel 1" */
+}
+
+.result-item, .friend-item {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 12px 15px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    margin-bottom: 8px;
+}
+
+/* === BOTONES DE ACCIÓN === */
+.btn-add {
+    background-color: #4a6c9a;
+    color: white;
+    border: none;
+    
+    /* Tamaño fijo y pequeño */
+    padding: 6px 16px;
+    height: 32px; 
+    border-radius: 20px; /* Bordes más redondeados */
+    
+    /* Evita que se estire */
+    width: auto; 
+    flex-shrink: 0; 
+    
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.3s;
+    
+    /* Centrar texto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-accept {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    
+    /* Tamaño fijo igual al de agregar */
+    height: 32px;
+    padding: 0 20px;
+    border-radius: 20px;
+    
+    width: auto; /* ¡IMPORTANTE! Evita que se estire */
+    flex-shrink: 0;
+    
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-accept:hover {
+    background-color: #059669;
+}
+.btn-add:hover { background-color: #37557a; }
+
+.badge-friend {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* === ESTILO DE AMIGOS (AVATARES) === */
+.friend-item {
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.friend-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #ff9f1c; /* Naranja */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.friend-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-stats {
+    font-size: 0.75rem;
+    color: #718096;
+    display: flex;
+    gap: 10px;
+}
+
+/* === RANKING === */
+.ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .ranking-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    padding: 12px 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.ranking-item:last-child {
+    border-bottom: none;
 }
 
 .rank-number {
-    font-weight: bold;
-    width: 30px;
-    text-align: center;
+    font-weight: 800;
+    width: 35px;
+    color: #a0aec0;
+    font-size: 1.1rem;
 }
 
-.rank-name {
+.rank-user {
     flex-grow: 1;
-    margin-left: 10px;
-    color: #333;
+    display: flex;
+    flex-direction: column;
 }
 
-.rank-points {
-    font-weight: bold;
-    color: #ff9f1c;
+.rank-user strong {
+    color: #2d3748;
 }
+
+.rank-user small {
+    color: #ff9f1c; /* Color de puntos */
+    font-weight: 600;
+}
+
+/* Top 3 Destacados */
+.rank-1 .rank-number { color: #d97706; } /* Oro */
+.rank-1 { background-color: #fffbeb; border-radius: 8px; border-left: 4px solid #f59e0b; }
+
+.rank-2 .rank-number { color: #718096; } /* Plata */
+.rank-2 { border-left: 4px solid #cbd5e0; background-color: #f7fafc; }
+
+.rank-3 .rank-number { color: #b7791f; } /* Bronce */
+.rank-3 { border-left: 4px solid #d69e2e; }

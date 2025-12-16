@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { dataService } from '../services/api';
 import '../styles/Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
     // --- HOOKS DE AUTENTICACIÓN ---
     // [IMPORTANTE] Necesitamos updateUserLocal para sincronizar los puntos.
     const { user, updateUserLocal } = useAuth(); 
+    const navigate = useNavigate();
 
     // --- ESTADOS DE DATOS ---
     const [tasks, setTasks] = useState([]);
@@ -319,11 +321,21 @@ function Dashboard() {
                     </div>
                 </div>
 
-                <Link to="/profile" className="profile-link" title="Ir a Perfil">
-                    <div className="profile-btn">
-                        {userInitials}
-                    </div>
-                </Link>
+                {/* DERECHA: Botón Comunidad + Perfil (AGRUPADOS) */}
+                <div className="header-actions">
+                    <button 
+                        onClick={() => navigate('/community')}
+                        className="btn-community" // Usamos la clase del CSS
+                    >
+                        🏆 Comunidad
+                    </button>
+
+                    <Link to="/profile" className="profile-link" title="Ir a Perfil">
+                        <div className="profile-btn">
+                            {userInitials}
+                        </div>
+                    </Link>
+                </div>
             </div>
 
             {/* Stats Rápidos */}

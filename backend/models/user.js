@@ -16,7 +16,11 @@ const userSchema = mongoose.Schema({
     // -----------------------------
 
     // Lista de Amigos
-    amigos: [{ 
+    friends: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User' 
+    }],
+    friendRequests: [{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User' 
     }],

@@ -1,18 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const Habit = require('../models/habit'); // Asegúrate de tener el modelo Habit creado
+const Habit = require('../models/habit'); 
 const User = require('../models/user.js');
 const { protect } = require('../middleware/authMiddleware');
 
 // 1. OBTENER MIS HÁBITOS (GET /api/habits)
 router.get('/', protect, async (req, res) => {
     try {
-        // Buscamos SOLO los hábitos del usuario logueado
         const habits = await Habit.find({ user: req.user.id }).sort({ createdAt: -1 });
         res.status(200).json(habits);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener hábitos', error: error.message });
         console.error("Error al obtener hábitos:", error);
+        res.status(500).json({ message: 'Error al obtener hábitos', error: error.message });
     }
 });
 
@@ -24,7 +23,10 @@ router.post('/', protect, async (req, res) => {
         const newHabit = new Habit({
             user: req.user.id,
             nombre: req.body.nombre,
-            frecuencia: 0,
+            
+            // --- CORRECCIÓN CRÍTICA 1 ---
+            frecuencia: req.body.frecuencia || 'diario', 
+            
             categoria: req.body.categoria || 'General',
             completed: false,
             fechasCompletadas: [],
@@ -47,50 +49,54 @@ router.put('/:id', protect, async (req, res) => {
 
         if (!habit) {
             return res.status(404).json({ message: 'Hábito no encontrado' });
-            console.error("Hábito no encontrado para ID:", req.params.id);
         }
 
-        // Verificar autorización
         if (habit.user.toString() !== req.user.id) {
             return res.status(401).json({ message: 'No autorizado' });
-            console.error("Usuario no autorizado para hábito ID:", req.params.id);
         }
 
-        // Recibimos los datos del frontend (completed y streak)
-        // Si el frontend ya calculó el streak, lo usamos. Si no, lo calculamos aquí.
+        // Lógica de cambio de estado (Check/Uncheck)
         if (req.body.completed !== undefined) {
             const wasCompleted = habit.completed;
             const isNowCompleted = req.body.completed;
             
             habit.completed = isNowCompleted;
 
-            // --- ZONA DE GAMIFICACIÓN ---
+            // --- CORRECCIÓN CRÍTICA 2 ---
+            // Antes guardabas el número en 'habit.frecuencia' (que es texto).
+            // AHORA guardamos en 'habit.rachaActual' (que es número).
+            
             if (isNowCompleted && !wasCompleted) {
-                // 1. Sumar racha del hábito
-                habit.frecuencia = (habit.streak || 0) + 1;
+                // SUMAR (Check)
+                habit.rachaActual = (habit.rachaActual || 0) + 1;
                 
-                // 2. Sumar PUNTOS al usuario (5 pts por hábito, según tu frontend)
+                // Actualizar récord de racha
+                if (habit.rachaActual > (habit.rachaMaxima || 0)) {
+                    habit.rachaMaxima = habit.rachaActual;
+                }
+
+                // Sumar PUNTOS al usuario
                 await User.findByIdAndUpdate(req.user.id, { $inc: { puntos: 5 } });
             
             } else if (!isNowCompleted && wasCompleted) {
-                // Si se desmarca, restamos la racha y los puntos
-                habit.frecuencia = Math.max(0, (habit.frecuencia || 0) - 1);
+                // RESTAR (Uncheck - error humano)
+                habit.rachaActual = Math.max(0, (habit.rachaActual || 0) - 1);
+                
+                // Restar PUNTOS
                 await User.findByIdAndUpdate(req.user.id, { $inc: { puntos: -5 } });
             }
-            
-            // Si el frontend mandó el streak explícitamente, lo respetamos (opcional)
-            if (req.body.frecuencia !== undefined) {
-                habit.frecuencia = req.body.frecuencia;
-            }
         }
+
+        // Si quisieras editar el texto del hábito o la frecuencia real
+        if (req.body.nombre) habit.nombre = req.body.nombre;
+        if (req.body.frecuencia) habit.frecuencia = req.body.frecuencia;
 
         await habit.save();
         res.status(200).json(habit);
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al actualizar hábito', error: error.message });
         console.error("Error al actualizar hábito:", error);
+        res.status(500).json({ message: 'Error al actualizar hábito', error: error.message });
     }
 });
 
@@ -105,8 +111,8 @@ router.delete('/:id', protect, async (req, res) => {
         await habit.deleteOne();
         res.status(200).json({ id: req.params.id });
     } catch (error) {
-        res.status(500).json({ message: 'Error al borrar hábito' });
         console.error("Error al borrar hábito:", error);
+        res.status(500).json({ message: 'Error al borrar hábito' });
     }
 });
 

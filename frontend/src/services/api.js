@@ -130,12 +130,34 @@ export const dataService = {
     });
   },
 
-  getRanking: async () => {
-    return apiCall('/social/ranking');
+  //-----SOCIAL------
+  // 1. Buscar usuarios por nombre o email
+  searchUser: async (query) => {
+    return apiCall(`/social/search?q=${query}`);
+  },
+  
+  // 2. Enviar solicitud de amistad
+  sendFriendRequest: async (userId) => {
+    return apiCall(`/social/request/${userId}`, { method: 'POST' });
   },
 
-  searchUser: async (email) => {
-    return apiCall(`/social/search?email=${email}`);
+  // 3. Ver mis solicitudes pendientes
+  getFriendRequests: async () => {
+    return apiCall('/social/requests');
+  },
+
+  // 4. Aceptar una solicitud
+  acceptFriendRequest: async (requesterId) => {
+    return apiCall(`/social/accept/${requesterId}`, { method: 'PUT' });
+  },
+
+  // 5. Ver mi lista de amigos
+  getFriends: async () => {
+    return apiCall('/social/friends');
+  },
+
+  getRanking: async () => {
+    return apiCall('/users/ranking');
   },
 };
 
