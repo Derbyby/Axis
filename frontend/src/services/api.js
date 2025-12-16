@@ -159,6 +159,10 @@ export const dataService = {
   getRanking: async () => {
     return apiCall('/users/ranking');
   },
+
+  getUserStats: async (userId) => {
+    return apiCall(`/users/stats/${userId}`);
+  },
 };
 
 export default authService;
