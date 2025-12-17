@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://64.181.213.97:5000/api';
 
 // --- 1. FUNCIÓN HELPER (Fetch Wrapper) ---
 const apiCall = async (endpoint, options = {}) => {
