@@ -343,12 +343,7 @@ function Dashboard() {
                     <button 
                         onClick={() => navigate('/community')}
                         className="btn-community"
-                        style={{
-                            backgroundColor: '#4F46E5', color: 'white', border: 'none',
-                            borderRadius: '20px', padding: '8px 16px', cursor: 'pointer',
-                            fontWeight: 'bold', display: 'flex', alignItems: 'center',
-                            gap: '5px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', fontSize: '0.9rem'
-                        }}
+                        
                     >
                         🏆 Comunidad
                     </button>
@@ -463,20 +458,17 @@ function Dashboard() {
                     <h2>Hábitos Diarios</h2>
 
                     {/* FORMULARIO AGREGAR HÁBITO (ESTILO ORIGINAL) */}
-                    <div style={{ background: '#f8f9fa', padding: '15px', borderRadius: '12px', marginBottom: '20px' }}>
+                    <div>
                         <input
+                            className='habit-input'
                             type="text"
                             placeholder="Nuevo hábito..."
                             value={newHabitTitle}
                             onChange={(e) => setNewHabitTitle(e.target.value)}
-                            style={{
-                                width: '100%', padding: '12px', borderRadius: '8px',
-                                border: '1px solid #ddd', marginBottom: '10px', fontSize: '1rem'
-                            }}
                         />
 
                         {/* Selector de Frecuencia */}
-                        <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                        <div className='frecuency-selector'>
                             {['Diario', 'Semanal', 'Personalizada'].map(tipo => (
                                 <button
                                     key={tipo}
@@ -485,7 +477,7 @@ function Dashboard() {
                                     style={{
                                         padding: '5px 10px', borderRadius: '20px', border: 'none',
                                         fontSize: '0.8rem', cursor: 'pointer',
-                                        backgroundColor: frecuencia === tipo ? '#2a9d8f' : '#e0e0e0',
+                                        backgroundColor: frecuencia === tipo ? '#6a994e' : '#e0e0e0',
                                         color: frecuencia === tipo ? 'white' : '#333', fontWeight: 'bold'
                                     }}
                                 >
@@ -496,7 +488,7 @@ function Dashboard() {
 
                         {/* Selector de Días (Solo si es Personalizada) */}
                         {frecuencia === 'Personalizada' && (
-                            <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '20px' }}>
+                            <div className="days-selector">
                                 {['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'].map((letra, index) => (
                                     <button
                                         key={index}
@@ -505,7 +497,7 @@ function Dashboard() {
                                         style={{
                                             width: '30px', height: '30px', borderRadius: '50%',
                                             border: 'none', cursor: 'pointer', fontWeight: 'bold',
-                                            backgroundColor: diasSeleccionados.includes(index) ? '#ff9f1c' : '#eee',
+                                            backgroundColor: diasSeleccionados.includes(index) ? '#fbbf6bff' : '#eee',
                                             color: diasSeleccionados.includes(index) ? 'white' : '#555',
                                             display: 'flex', alignItems: 'center', justifyContent: 'center'
                                         }}
@@ -518,11 +510,7 @@ function Dashboard() {
 
                         <button
                             onClick={handleAddHabit}
-                            style={{
-                                width: '100%', backgroundColor: '#2a9d8f', color: 'white',
-                                padding: '10px', borderRadius: '8px', border: 'none',
-                                fontWeight: 'bold', cursor: 'pointer'
-                            }}
+                            className='btn-habit'
                         >
                             + Crear Hábito
                         </button>
@@ -570,7 +558,7 @@ function Dashboard() {
                 <div className="card tasks-card">
                     <h2>Tareas de Hoy</h2>
                     <form onSubmit={handleCreateTask} style={{ marginBottom: '20px', display: 'flex', gap: '10px', alignItems: 'center', width: '100%' }}>
-                        <input type="text" placeholder="Nueva tarea..." value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} style={{ flex: '2', minWidth: '120px', padding: '12px', borderRadius: '8px', border: '1px solid #ccc', fontSize: '0.95rem', outline: 'none', backgroundColor: '#ffffff', color: '#333' }} />
+                        <input className="task-input" type="text" placeholder="Nueva tarea..." value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value) } />
                         <select value={newTaskPriority} onChange={(e) => setNewTaskPriority(e.target.value)} style={{ flex: '1', padding: '12px', borderRadius: '8px', border: '1px solid #ccc', cursor: 'pointer', backgroundColor: '#f9f9f9', fontSize: '0.95rem', outline: 'none' }}>
                             <option value="Baja">🟢 Baja</option>
                             <option value="Media">🟠 Media</option>

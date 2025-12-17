@@ -1,0 +1,116 @@
+/* === CONTENEDOR PRINCIPAL === */
+.terms-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f4f7f1 0%, #e8eee0 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 40px 20px;
+}
+
+/* === CAJA DE CONTENIDO === */
+.terms-box {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(56, 102, 65, 0.1);
+    width: 100%;
+    max-width: 700px;
+    padding: 50px 40px;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === ENCABEZADO === */
+.terms-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #f4f7f1;
+    padding-bottom: 20px;
+}
+
+.terms-header h1 {
+    color: #386641;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.terms-header .subtitle {
+    color: #7f9c85;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* === CUERPO DE TEXTO === */
+.terms-content {
+    max-height: 400px; /* Scroll interno para no alargar demasiado la página */
+    overflow-y: auto;
+    padding-right: 15px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+/* Personalización del scrollbar para que sea minimalista */
+.terms-content::-webkit-scrollbar {
+    width: 6px;
+}
+.terms-content::-webkit-scrollbar-thumb {
+    background: #d4e09b;
+    border-radius: 10px;
+}
+
+.terms-content section {
+    margin-bottom: 25px;
+}
+
+.terms-content h2 {
+    color: #6a994e;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.terms-content p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* === BOTÓN VOLVER === */
+.terms-footer {
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #f4f7f1;
+    padding-top: 30px;
+}
+
+.btn-back {
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #a7c957 0%, #6a994e 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(106, 153, 78, 0.2);
+}
+
+.btn-back:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 153, 78, 0.3);
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 480px) {
+    .terms-box {
+        padding: 30px 20px;
+    }
+    .terms-header h1 {
+        font-size: 22px;
+    }
+}

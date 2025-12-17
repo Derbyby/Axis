@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { dataService } from '../services/api'; // <--- CORRECCIÓN: Usamos dataService
+import { dataService } from '../services/api';
 import { Link } from 'react-router-dom';
+import '../styles/Profile.css'; // Reutilizamos los estilos generales
 
 function ForgotPassword() {
     const [email, setEmail] = useState('');
@@ -15,12 +16,9 @@ function ForgotPassword() {
         setLoading(true);
 
         try {
-            // Usamos la nueva función que creamos en api.js
             await dataService.forgotPassword(email);
             setMessage('Si el correo existe, recibirás un enlace de recuperación en unos momentos.');
         } catch (err) {
-            // Por seguridad, a veces es mejor mostrar el mismo mensaje, 
-            // pero para depurar mostraremos el error real si existe.
             console.error(err);
             setError('Hubo un problema al enviar la solicitud. Intenta de nuevo.');
         } finally {
@@ -29,36 +27,39 @@ function ForgotPassword() {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#f0f2f5', fontFamily: 'Segoe UI, sans-serif' }}>
-            <div style={{ background: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
-                <h2 style={{ textAlign: 'center', marginBottom: '10px', color: '#333' }}>Recuperar Cuenta</h2>
-                <p style={{ textAlign: 'center', color: '#666', marginBottom: '20px', fontSize: '0.9rem' }}>Ingresa tu correo y te enviaremos instrucciones.</p>
-                
+        <div className="profile-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <div className="profile-card" style={{ maxWidth: '400px', width: '100%', padding: '30px', textAlign: 'center' }}>
+                <h2 className="profile-name" style={{ marginBottom: '10px' }}>Recuperar Cuenta</h2>
+                <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '20px' }}>
+                    Ingresa tu correo y te enviaremos instrucciones.
+                </p>
+
                 <form onSubmit={handleSubmit}>
-                    <input 
-                        type="email" 
-                        placeholder="Ingresa tu correo" 
-                        value={email} 
+                    <input
+                        type="email"
+                        placeholder="Correo electrónico"
+                        value={email}
                         onChange={e => setEmail(e.target.value)}
                         required
-                        style={{ width: '100%', padding: '12px', marginBottom: '15px', borderRadius: '8px', border: '1px solid #ccc', outline: 'none' }}
+                        className="name-input"
+                        style={{ width: '100%', padding: '10px', marginBottom: '15px', borderRadius: '8px', border: '1px solid #ccc', outline: 'none' }}
                     />
-                    
-                    <button 
-                        type="submit" 
+
+                    <button
+                        type="submit"
                         disabled={loading}
-                        style={{ width: '100%', padding: '12px', background: '#4F46E5', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', opacity: loading ? 0.7 : 1 }}
+                        className="btn-primary"
+                        style={{ width: '100%', padding: '12px', fontWeight: 'bold' }}
                     >
                         {loading ? 'Enviando...' : 'Enviar Enlace'}
                     </button>
                 </form>
 
-                {message && <div style={{ marginTop: '15px', padding: '10px', background: '#e6fffa', color: '#047857', borderRadius: '5px', fontSize: '0.9rem', textAlign: 'center' }}>{message}</div>}
-                
-                {error && <div style={{ marginTop: '15px', padding: '10px', background: '#fff5f5', color: '#c53030', borderRadius: '5px', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
+                {message && <div style={{ marginTop: '15px', padding: '10px', background: '#e6fffa', color: '#047857', borderRadius: '5px', fontSize: '0.9rem' }}>{message}</div>}
+                {error && <div style={{ marginTop: '15px', padding: '10px', background: '#fff5f5', color: '#c53030', borderRadius: '5px', fontSize: '0.9rem' }}>{error}</div>}
 
-                <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                    <Link to="/login" style={{ color: '#4F46E5', textDecoration: 'none', fontWeight: '600' }}>Volver al inicio de sesión</Link>
+                <div style={{ marginTop: '20px' }}>
+                    <Link to="/login" className="back-link">← Volver al inicio de sesión</Link>
                 </div>
             </div>
         </div>

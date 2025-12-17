@@ -93,7 +93,7 @@ function Community() {
     return (
         <div className="community-container">
             <Link to="/dashboard" className="back-link">← Volver al Dashboard</Link>
-            <h1>Comunidad & Amigos</h1>
+            <h1 style={{ color: '#d97706' }}>Comunidad & Amigos</h1>
 
             <div className="community-grid-layout">
                 

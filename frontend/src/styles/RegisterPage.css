@@ -1,4 +1,5 @@
 /* src/styles/RegisterPage.css */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +11,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Fondo crema verdoso relajante */
+  background: linear-gradient(135deg, #f4f7f1 0%, #e8eee0 100%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
 }
@@ -18,84 +20,194 @@
 .register-box {
   background: white;
   border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  /* Sombra suave verdosa */
+  box-shadow: 0 20px 60px rgba(56, 102, 65, 0.1);
   width: 100%;
   max-width: 480px;
   padding: 40px;
+  animation: slideUp 0.5s ease-out;
 }
 
-.register-header { text-align: center; margin-bottom: 30px; }
-.register-header h1 { color: #2d3748; font-size: 28px; font-weight: 700; margin-bottom: 5px; }
-.subtitle { color: #718096; font-size: 14px; }
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.register-header h1 {
+  /* Verde oscuro para títulos */
+  color: #386641;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  /* Verde grisáceo suave */
+  color: #7f9c85;
+  font-size: 14px;
+}
 
 .logo-icon {
-  width: 60px; height: 60px; margin: 0 auto 15px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 50%; color: white; font-size: 30px;
-  display: flex; align-items: center; justify-content: center; font-weight: bold;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 15px;
+  /* Degradado verde característico */
+  background: linear-gradient(135deg, #a7c957 0%, #6a994e 100%);
+  border-radius: 50%;
+  color: white;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
 .error-banner {
-  background: #fff5f5; border-left: 4px solid #fc8181;
-  color: #c53030; padding: 10px; border-radius: 4px; margin-bottom: 20px; font-size: 0.9rem;
+  /* Rojo pastel para errores */
+  background: #fff5f5;
+  border-left: 4px solid #bc4749;
+  color: #bc4749;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-/* --- INPUTS (Forzamos color blanco) --- */
-.form-group { margin-bottom: 20px; }
-.form-group label { display: block; margin-bottom: 8px; color: #4a5568; font-weight: 600; font-size: 0.9rem; }
+/* --- FORMULARIOS E INPUTS --- */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #386641;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
 
 .form-group input {
   width: 100%;
   padding: 12px;
-  border: 2px solid #e2e8f0;
+  /* Borde suave verdoso */
+  border: 2px solid #e8eee0;
   border-radius: 10px;
   font-size: 1rem;
-  /* IMPORTANTE: Esto arregla el fondo negro */
-  background-color: #ffffff !important; 
-  color: #333333 !important;
+  background-color: #ffffff !important;
+  color: #386641 !important;
+  transition: all 0.3s ease;
 }
 
-.form-group input:focus { border-color: #667eea; outline: none; }
-.form-group input.error { border-color: #e53e3e; }
-.error-message { color: #e53e3e; font-size: 0.8rem; margin-top: 5px; display: block; }
+.form-group input:focus {
+  outline: none;
+  border-color: #a7c957;
+  box-shadow: 0 0 0 3px rgba(167, 201, 87, 0.15);
+}
 
-/* --- TÉRMINOS Y CONDICIONES (Centrado Perfecto) --- */
+.form-group input.error {
+  border-color: #bc4749;
+}
+
+.error-message {
+  color: #bc4749;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+/* --- TÉRMINOS Y CONDICIONES --- */
 .terms {
   margin: 20px 0;
-  display: flex;         /* Activa flexbox */
-  justify-content: center; /* Centra horizontalmente */
+  display: flex;
+  justify-content: center;
 }
 
 .terms-checkbox {
   display: flex;
-  align-items: center;   /* Alinea verticalmente checkbox y texto */
-  gap: 10px;            /* Espacio entre checkbox y texto */
+  align-items: center;
+  gap: 10px;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #4a5568;
+  color: #7f9c85;
 }
 
 .terms-checkbox input {
-  width: 20px !important;  /* Tamaño fijo para el checkbox */
-  height: 20px !important; 
+  width: 18px !important;
+  height: 18px !important;
   margin: 0;
-  accent-color: #667eea;
+  /* Checkbox en verde */
+  accent-color: #6a994e;
   cursor: pointer;
 }
 
-.terms-link { color: #667eea; text-decoration: none; font-weight: 600; margin-left: 3px; }
-.terms-link:hover { text-decoration: underline; }
+.terms-link {
+  color: #6a994e;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
 
 /* --- BOTONES Y FOOTER --- */
 .register-button {
-  width: 100%; padding: 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white; border: none; border-radius: 10px;
-  font-size: 1rem; font-weight: 600; cursor: pointer;
-  transition: transform 0.2s;
+  width: 100%;
+  padding: 14px;
+  /* Botón degradado verde */
+  background: linear-gradient(135deg, #a7c957 0%, #6a994e 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(106, 153, 78, 0.2);
 }
-.register-button:hover:not(:disabled) { transform: translateY(-2px); }
-.register-button:disabled { opacity: 0.7; cursor: not-allowed; }
 
-.register-footer {color: #333333; text-align: center; margin-top: 25px; pt: 20px; border-top: 1px solid #edf2f7; }
-.login-link { color: #667eea; font-weight: 600; text-decoration: none; }
+.register-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(106, 153, 78, 0.3);
+}
+
+.register-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: #d4e09b;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #f4f7f1;
+}
+
+.register-footer p {
+  color: #7f9c85;
+  font-size: 14px;
+}
+
+.login-link {
+  color: #6a994e;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #386641;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { dataService } from '../services/api'; // <--- Usamos dataService
+import { dataService } from '../services/api';
+import '../styles/ResetPassword.css';
 
 function ResetPassword() {
     const { token } = useParams(); 
@@ -12,10 +13,8 @@ function ResetPassword() {
         e.preventDefault();
         setLoading(true);
         try {
-            // Llamamos a la función del servicio
             await dataService.resetPassword(token, password);
-            
-            alert('¡Contraseña actualizada con éxito! Ahora puedes iniciar sesión.');
+            alert('¡Contraseña actualizada con éxito!');
             navigate('/login');
         } catch (error) {
             console.error(error);
@@ -26,23 +25,32 @@ function ResetPassword() {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#f0f2f5', fontFamily: 'Segoe UI, sans-serif' }}>
-            <div style={{ background: 'white', padding: '40px', borderRadius: '12px', width: '100%', maxWidth: '400px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
-                <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#333' }}>Nueva Contraseña</h2>
-                <form onSubmit={handleSubmit}>
-                    <input 
-                        type="password" 
-                        placeholder="Escribe tu nueva contraseña" 
-                        value={password} 
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                        minLength="6"
-                        style={{ width: '100%', padding: '12px', marginBottom: '15px', borderRadius: '8px', border: '1px solid #ccc', outline: 'none' }}
-                    />
+        <div className="reset-container">
+            <div className="reset-box">
+                <div className="reset-header">
+                    <div className="logo-icon">✓</div>
+                    <h2>Nueva Contraseña</h2>
+                    <p className="subtitle">Asegura tu cuenta con una clave nueva</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="reset-form">
+                    <div className="form-group">
+                        <label>Contraseña Nueva</label>
+                        <input 
+                            type="password" 
+                            placeholder="Mínimo 6 caracteres" 
+                            value={password} 
+                            onChange={e => setPassword(e.target.value)}
+                            required
+                            minLength="6"
+                            disabled={loading}
+                        />
+                    </div>
+                    
                     <button 
                         type="submit" 
+                        className="reset-button"
                         disabled={loading}
-                        style={{ width: '100%', padding: '12px', background: '#4F46E5', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
                     >
                         {loading ? 'Actualizando...' : 'Cambiar Contraseña'}
                     </button>

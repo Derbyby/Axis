@@ -2,31 +2,37 @@
     /* ----------------------------------------------------- */
     /* === PALETA DE COLORES Y VARIABLES GLOBALES === */
     /* ----------------------------------------------------- */
-    
-    /* Colores Principales (Azul Sereno) */
-    --color-primary-light: #4a6c9a;  /* Azul principal claro (Botones, Iconos, Progreso) */
-    --color-primary-dark: #37557a;   /* Azul principal oscuro (Hover, Sombra) */
 
-    /* Fondos y Degradados Base */
-    --color-bg-light: #f0f4f8;       /* Fondo base claro */
-    --color-bg-dark: #d9e2ec;        /* Fondo base oscuro/degradado */
-    --color-card-bg: white;
-    
-    /* Texto */
-    --color-heading: #2d3748;
-    --color-text-subtle: #718096;
+    /* Colores Principales (Verde Naturaleza) - CORREGIDOS */
+    --color-primary-light: #a7c957;
+    /* Verde menta suave */
+    --color-primary-dark: #6a994e;
+    /* Verde bosque relajante */
 
-    /* Degradados Reutilizables */
+    /* Fondos y Degradados Base - CORREGIDOS */
+    --color-bg-light: #f4f7f1;
+    /* Fondo crema verdoso */
+    --color-bg-dark: #e8eee0;
+    /* Sombra pastel para degradados */
+    --color-card-bg: #ffffff;
+
+    /* Texto - CORREGIDOS */
+    --color-heading: #386641;
+    /* Verde oscuro para lectura clara */
+    --color-text-subtle: #7f9c85;
+    /* Verde grisáceo suave */
+
+    /* Degradados Reutilizables - CORREGIDOS */
     --gradient-bg: linear-gradient(135deg, var(--color-bg-light) 0%, var(--color-bg-dark) 100%);
     --gradient-primary: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary-dark) 100%);
-    
-    /* Degradados Pomodoro (Ajustado a un azul/morado más claro para 'work') */
-    --gradient-work: linear-gradient(135deg, #6a82fb 0%, #c0c8ff 100%); 
-    --gradient-break: linear-gradient(135deg, #8BC34A 0%, #4CAF50 100%);
 
-    /* Sombras */
-    --shadow-base: 0 10px 30px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.12);
+    /* Degradados Pomodoro - CORREGIDOS */
+    --gradient-work: linear-gradient(135deg, #a7c957 0%, #d4e09b 100%);
+    --gradient-break: linear-gradient(135deg, #f2e8cf 0%, #e8dcc0 100%);
+
+    /* Sombras - CORREGIDAS (Más sutiles y verdosas) */
+    --shadow-base: 0 8px 24px rgba(56, 102, 65, 0.06);
+    --shadow-hover: 0 12px 30px rgba(56, 102, 65, 0.1);
 }
 
 /* === BASE & RESET === */
@@ -88,13 +94,14 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(56, 102, 65, 0.1);
+    /* Sombra verdosa */
 }
 
 .profile-btn:hover {
     background: var(--color-primary-dark);
     transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 15px rgba(56, 102, 65, 0.15);
 }
 
 /* === GRID & CARDS BASE === */
@@ -129,20 +136,26 @@
 /* === POMODORO CARD === */
 .pomodoro-card {
     grid-column: 1;
+    text-align: center;
 }
 
 .timer {
-    background: var(--gradient-work); /* Usa la variable de degradado de trabajo */
-    border-radius: 12px;
-    padding: 30px;
-    text-align: center;
-    margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
+    background: var(--gradient-work);
+    border: 1px solid var(--primary-mint);
+    padding: 50px 20px;
+    border-radius: 50%;
+    /* Reloj circular más orgánico */
+    width: 280px;
+    height: 280px;
+    margin: 0 auto 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(106, 153, 78, 0.1);
 }
 
 .timer.break {
-    background: var(--gradient-break); /* Usa la variable de degradado de descanso */
+    background: var(--gradient-break);
 }
 
 .timer-display {
@@ -150,8 +163,12 @@
     font-weight: 700;
     color: white;
     letter-spacing: 2px;
-    font-family: 'Courier New', monospace;
     margin-bottom: 8px;
+}
+
+/* Ajuste de color para texto en modo descanso (fondo más claro) */
+.timer.break .timer-display {
+    color: var(--color-heading);
 }
 
 .timer-label {
@@ -159,6 +176,10 @@
     font-size: 14px;
     font-weight: 500;
     display: block;
+}
+
+.timer.break .timer-label {
+    color: var(--color-text-subtle);
 }
 
 .timer-controls {
@@ -178,25 +199,28 @@ button {
 }
 
 .btn-primary {
-    background: var(--gradient-primary); 
+    background: var(--gradient-primary);
     color: white;
-    box-shadow: 0 4px 15px rgba(74, 108, 154, 0.4);
+    box-shadow: 0 4px 15px rgba(106, 153, 78, 0.2);
+    /* Sombra ajustada */
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(74, 108, 154, 0.6);
+    box-shadow: 0 6px 20px rgba(106, 153, 78, 0.3);
 }
 
 .btn-secondary {
-    background: var(--color-bg-light); 
-    color: var(--color-primary-light); 
-    border: 2px solid var(--color-bg-dark);
+    background: var(--color-bg-light);
+    color: var(--color-primary-dark);
+    /* Color de texto ajustado */
+    border: 2px solid var(--color-primary-light);
+    /* Borde ajustado */
 }
 
 .btn-secondary:hover {
     background: var(--color-bg-dark);
-    border-color: var(--color-primary-light);
+    border-color: var(--color-primary-dark);
 }
 
 /* === PROGRESS CARD === */
@@ -219,20 +243,21 @@ button {
 }
 
 .progress-circle svg {
-    transform: rotate(-90deg); /* Inicia el trazo arriba */
+    transform: rotate(-90deg);
 }
 
-.progress-background, .progress-fill {
+.progress-background,
+.progress-fill {
     fill: none;
     stroke-width: 10;
 }
 
 .progress-background {
-    stroke: var(--color-bg-dark); /* Color de fondo del círculo */
+    stroke: var(--color-bg-dark);
 }
 
 .progress-fill {
-    stroke: url(#progressGradient); /* Usa el degradado SVG definido en el JSX */
+    stroke: url(#progressGradient);
     stroke-linecap: round;
     transition: stroke-dasharray 0.5s ease-in-out;
 }
@@ -248,7 +273,8 @@ button {
 .percentage {
     font-size: 32px;
     font-weight: 700;
-    color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    /* Color ajustado */
 }
 
 .progress-text .label {
@@ -284,7 +310,7 @@ button {
 
 /* === TASKS CARD === */
 .tasks-card {
-    grid-column: 1 / -1; /* Ocupa todo el ancho en el grid */
+    grid-column: 1 / -1;
 }
 
 .tasks-list {
@@ -299,19 +325,16 @@ button {
     justify-content: space-between;
     padding: 12px 15px;
     border-radius: 8px;
-    border: 1px solid var(--color-bg-dark);
-    border-left: 5px solid transparent;
     transition: all 0.2s ease;
 }
 
 .task-item:hover {
-    background: var(--color-bg-light); 
+    background: var(--color-bg-light);
     border-left-color: var(--color-primary-light);
 }
 
 .task-item.completed {
-    background: #f8fff0; 
-    border-left-color: #8BC34A;
+    background: #f1f8e9;
 }
 
 .task-content {
@@ -332,50 +355,18 @@ button {
 }
 
 /* Checkbox personalizado */
-.task-checkbox {
-    position: relative;
-    width: 20px;
-    height: 20px;
-}
-
-.task-checkbox input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
 .task-checkbox label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     border: 2px solid var(--color-primary-light);
-    border-radius: 4px;
-    cursor: pointer;
-    background: var(--color-card-bg);
-    transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-.task-checkbox input:checked + label {
-    background: var(--gradient-primary); 
-    border-color: var(--color-primary-light);
-}
-
-.task-checkbox input:checked + label::after {
-    content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
+.task-checkbox input:checked+label {
+    background: var(--gradient-primary);
 }
 
 .task-badge {
     font-size: 14px;
-    color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    /* Ajustado */
 }
 
 /* === CATEGORIES === */
@@ -388,10 +379,25 @@ button {
     letter-spacing: 0.5px;
 }
 
-.category-salud { background: #fff0f0; color: #cc5252; }
-.category-bienestar { background: #e6f7ff; color: #3385ff; }
-.category-aprendizaje { background: #fff8e1; color: #ffb300; }
-.category-trabajo { background: #f0e6ff; color: #8c5cdb; }
+.category-salud {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.category-bienestar {
+    background: #f1f8e9;
+    color: #558b2f;
+}
+
+.category-aprendizaje {
+    background: #fffde7;
+    color: #fbc02d;
+}
+
+.category-trabajo {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
 
 
 /* === QUICK STATS === */
@@ -415,8 +421,7 @@ button {
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-hover);
 }
 
 .stat-icon {
@@ -437,107 +442,49 @@ button {
 /* --- NUEVOS ESTILOS DEL FORMULARIO DE TAREAS --- */
 
 .new-task-form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--color-bg-dark); 
-}
-
-.new-task-form input[type="text"] {
-    flex-grow: 1;
-    padding: 10px 15px;
-    border: 1px solid var(--color-bg-dark);
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
+    border-bottom: 1px solid var(--color-bg-dark);
 }
 
 .new-task-form input[type="text"]:focus {
     border-color: var(--color-primary-light);
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(74, 108, 154, 0.2);
+    box-shadow: 0 0 0 2px rgba(167, 201, 87, 0.2);
+    /* Sombra ajustada */
 }
 
 .new-task-form select {
-    padding: 10px 15px;
     border: 1px solid var(--color-bg-dark);
-    border-radius: 8px;
-    background-color: var(--color-card-bg);
     color: var(--color-heading);
-    cursor: pointer;
-}
-
-.new-task-form .btn-primary {
-    padding: 10px 15px;
-    font-size: 14px;
-    white-space: nowrap; 
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 768px) {
-    .dashboard-container {
-        padding: 20px 15px;
-    }
+/* (Mantenido sin cambios de layout, solo colores heredados de variables) */
 
-    .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 30px;
-    }
-
-    .dashboard-header h1 {
-        font-size: 24px;
-    }
-
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .pomodoro-card {
-        grid-column: 1;
-    }
-
-    .progress-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-
-    .progress-stats {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-
-    .timer-display {
-        font-size: 42px;
-    }
-
-    .quick-stats {
-        grid-template-columns: 1fr;
-    }
+.btn-community {
+    background: var(--gradient-primary);
+    color: white;
 }
 
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espacio entre el botón comunidad y el perfil */
+.notification-btn {
+    color: var(--color-primary-dark);
+}
+
+.notification-dropdown {
+    color: var(--color-heading);
+    border: 1px solid var(--color-bg-dark);
 }
 
 .btn-community {
-    background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); /* Índigo */
+    background: var(--gradient-primary);
     color: white;
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn-community:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* --- CENTRO DE NOTIFICACIONES --- */
@@ -552,7 +499,7 @@ button {
     font-size: 1.5rem;
     padding: 10px;
     border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     display: flex;
     align-items: center;
@@ -563,13 +510,15 @@ button {
 
 .notification-btn:hover {
     transform: scale(1.1);
+    background: var(--color-bg-dark);
 }
 
 .badge {
     position: absolute;
     top: -5px;
     right: -5px;
-    background-color: #e63946; /* Rojo alerta */
+    background-color: #e63946;
+    /* Rojo alerta */
     color: white;
     border-radius: 50%;
     width: 20px;
@@ -590,7 +539,7 @@ button {
     width: 300px;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     color: #2d3748;
     padding: 15px;
     z-index: 1000;
@@ -615,7 +564,103 @@ button {
     color: #2a9d8f;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+.notification-item strong {
+    color: var(--color-primary-dark);
+}
+
+.frecuency-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    height: 2.5rem;
+}
+
+.days-selector {
+    display: flex;
+    flex-direction: row;
+    /* Fuerza a que estén en una sola línea */
+    justify-content: center;
+    /* Centra horizontalmente el contenido */
+    align-items: center;
+    /* Centra verticalmente los elementos */
+    gap: 5px;
+    /* Espaciado constante entre días */
+    margin-bottom: 5px;
+    width: 100%;
+    /* Asegura que use todo el ancho del div padre */
+    flex-wrap: wrap;
+    /* Permite que los días bajen a la siguiente línea si no caben */
+    overflow-x: hidden;
+    /* Si no caben en celular, permite scroll horizontal suave */
+    padding: 5px 0;
+}
+
+/* HABITO */
+.btn-habit {
+    width: 100%;
+    background: var(--color-primary-dark);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-habit:hover {
+    background: var(--color-primary-light);
+}
+
+/* Esconder barra en Chrome, Safari y Opera */
+.habits-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* Esconder barra en IE, Edge y Firefox */
+.habits-list {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* === FORZAR ESQUEMA CLARO PARA EVITAR INPUTS NEGROS === */
+input, select, textarea {
+    color-scheme: light;
+    background-color: #ffffff !important;
+    color: var(--color-heading) !important;
+}
+
+.task-input {
+    flex: 2;
+    min-width: 120px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc !important;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.task-input:focus {
+    border-color: var(--color-primary-light) !important;
+    box-shadow: 0 0 0 3px rgba(167, 201, 87, 0.15); /* Efecto de enfoque suave */
+}
+
+.habit-input {
+    width: 100%;             /* <--- Esto hace que ocupe todo el ancho del contenedor */
+    box-sizing: border-box;  /* Asegura que el padding no estire el input fuera de la caja */
+    min-width: 120px;     /* Un poco más de aire a los lados */
+    border-radius: 10px;     /* Bordes ligeramente más suaves para el estilo minimalista */
+    border: 1.5px solid #e0e8e0 !important; /* Borde sutil coherente con tu paleta verde */
+    font-size: 1rem;         /* Tamaño de fuente ligeramente mayor para mejor legibilidad */
+    outline: none;
+    background-color: #ffffff !important;
+    color: var(--color-heading);
+    transition: all 0.3s ease;
+    margin-bottom: 15px;     /* Espacio inferior antes de los selectores de frecuencia */
+}
+
+.habit-input:focus {
+    border-color: var(--color-primary-light) !important;
+    box-shadow: 0 0 0 3px rgba(167, 201, 87, 0.15); /* Efecto de enfoque suave */
 }

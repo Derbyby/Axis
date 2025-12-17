@@ -127,11 +127,12 @@
     transition: transform 0.2s;
 }
 .badge-card.unlocked {
+    color: #333;
     border-color: #A7C957;
     background-color: #fdfffc;
 }
 .badge-card.locked {
-    background-color: #f5f5f5;
+    background-color: #cfc9c9;
     opacity: 0.7;
     filter: grayscale(100%); /* Efecto gris si está bloqueada */
 }
@@ -261,4 +262,10 @@
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95) translateY(20px); }
     to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.edit-profile-form {
+    display: flex;           /* Activamos flexbox */
+    flex-direction: column;  /* Apilamos los elementos verticalmente */
+    align-items: center;     /* Centramos horizontalmente */
 }

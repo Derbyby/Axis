@@ -79,7 +79,7 @@ function LoginPage() {
               <input type="checkbox" disabled={isLoading} />
               Recuérdame
             </label>
-            <Link to="/forgot-password" style={{ color: '#4F46E5', fontSize: '0.9rem', textDecoration: 'none' }}>
+            <Link to="/forgot-password" className="signup-link">
               ¿Olvidaste tu contraseña?
             </Link>
           </div>

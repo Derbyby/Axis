@@ -9,7 +9,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Cambio de degradado azul/morado a Verde Pastel */
+  background: linear-gradient(135deg, #f4f7f1 0%, #e8eee0 100%);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
 }
@@ -17,7 +18,8 @@
 .login-box {
   background: white;
   border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  /* Sombra más suave y natural */
+  box-shadow: 0 20px 60px rgba(56, 102, 65, 0.1);
   width: 100%;
   max-width: 420px;
   padding: 50px 40px;
@@ -44,7 +46,7 @@
   width: 70px;
   height: 70px;
   margin: 0 auto 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #a7c957 0%, #6a994e 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -55,25 +57,28 @@
 }
 
 .login-header h1 {
-  color: #2d3748;
+  /* Color verde oscuro para títulos */
+  color: #386641;
   font-size: 28px;
   margin-bottom: 8px;
   font-weight: 700;
 }
 
 .subtitle {
-  color: #718096;
+  /* Color verde grisáceo para subtítulos */
+  color: #7f9c85;
   font-size: 14px;
   font-weight: 500;
 }
 
 .error-banner {
-  background: #fee;
-  border-left: 4px solid #f56565;
+  /* Rojo pastel para errores sin romper la estética */
+  background: #fff5f5;
+  border-left: 4px solid #bc4749;
   padding: 12px 16px;
   border-radius: 8px;
   margin-bottom: 20px;
-  color: #c53030;
+  color: #bc4749;
   font-size: 14px;
   font-weight: 500;
 }
@@ -89,7 +94,8 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #2d3748;
+  /* Color de etiqueta suavizado */
+  color: #386641;
   font-weight: 600;
   font-size: 14px;
 }
@@ -97,21 +103,24 @@
 .form-group input {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #e2e8f0;
+  /* Borde verde muy claro */
+  border: 2px solid #e8eee0;
   border-radius: 10px;
   font-size: 14px;
   transition: all 0.3s ease;
   font-family: inherit;
+  background-color: #ffffff;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  /* Foco en verde menta */
+  border-color: #a7c957;
+  box-shadow: 0 0 0 3px rgba(167, 201, 87, 0.15);
 }
 
 .form-group input::placeholder {
-  color: #a0aec0;
+  color: #b2c2b6;
 }
 
 .remember-forgot {
@@ -126,7 +135,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: #4a5568;
+  color: #7f9c85;
   font-weight: 500;
 }
 
@@ -134,25 +143,28 @@
   width: auto;
   margin-right: 8px;
   cursor: pointer;
-  accent-color: #667eea;
+  /* Checkbox en verde */
+  accent-color: #6a994e;
 }
 
 .forgot-password {
-  color: #667eea;
+  /* Enlace en verde bosque */
+  color: #6a994e;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .forgot-password:hover {
-  color: #764ba2;
+  color: #386641;
   text-decoration: underline;
 }
 
 .login-button {
   width: 100%;
   padding: 13px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Botón con degradado verde */
+  background: linear-gradient(135deg, #a7c957 0%, #6a994e 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -160,13 +172,13 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(106, 153, 78, 0.2);
   margin-bottom: 20px;
 }
 
 .login-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 20px rgba(106, 153, 78, 0.3);
 }
 
 .login-button:active:not(:disabled) {
@@ -176,28 +188,30 @@
 .login-button:disabled {
   opacity: 0.8;
   cursor: not-allowed;
+  background: #d4e09b;
 }
 
 .login-footer {
   text-align: center;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #f4f7f1;
   padding-top: 20px;
 }
 
 .login-footer p {
-  color: #4a5568;
+  color: #7f9c85;
   font-size: 14px;
 }
 
 .signup-link {
-  color: #667eea;
+  /* Enlace de registro en verde destacado */
+  color: #6a994e;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .signup-link:hover {
-  color: #764ba2;
+  color: #386641;
 }
 
 /* Responsive Design */

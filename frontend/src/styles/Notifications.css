@@ -1,0 +1,50 @@
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(56, 102, 65, 0.15);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-notif {
+    background-color: #f9fbf7;
+    border-radius: 24px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 15px 40px rgba(56, 102, 65, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(167, 201, 87, 0.2);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Variante de ÉXITO (Verde) */
+.modal-notif.success::before {
+    content: ""; position: absolute; top: 0; left: 0;
+    width: 40%; height: 6px;
+    background: linear-gradient(90deg, #a7c957, #6a994e);
+}
+
+/* Variante de ERROR (Rojo) */
+.modal-notif.error::before {
+    content: ""; position: absolute; top: 0; left: 0;
+    width: 40%; height: 6px;
+    background: linear-gradient(90deg, #bc4749, #6b2d2d);
+}
+.modal-notif.error .icon-check {
+    color: #bc4749;
+    border-color: #bc4749;
+}
+
+/* Animación de aparición */
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ... (el resto de los estilos del botón y texto que ya tenías) */

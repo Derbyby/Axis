@@ -8,9 +8,11 @@ function Profile() {
     const { user, logout, updateUserLocal } = useAuth();
     const navigate = useNavigate();
 
+    const [notification, setNotification] = useState(null); // { type: 'success' | 'error', message: string }
+
     // --- ESTADOS ---
     const [isLoading, setIsLoading] = useState(false);
-    
+
     // Estado para el MODAL (Edición completa)
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
@@ -71,6 +73,7 @@ function Profile() {
         } catch (error) {
             console.error("Error al actualizar nombre", error);
             alert("Error al actualizar nombre");
+            //showNotif("Error al actualizar nombre", "error", "Error");
         }
     };
 
@@ -88,12 +91,14 @@ function Profile() {
         try {
             const updatedUser = await dataService.updateUser(user._id || user.id, formData);
             updateUserLocal(updatedUser);
-            
+
             setIsEditing(false); // Cerramos modal
             alert("Perfil actualizado correctamente");
+            //showNotif("Perfil actualizado correctamente", "success", "Éxito");
         } catch (error) {
             console.error(error);
             alert("Error al guardar perfil");
+            //showNotif("Error al guardar perfil", "error", "Error");
         } finally {
             setIsLoading(false);
         }
@@ -112,7 +117,7 @@ function Profile() {
             <div className="profile-card">
                 {/* CABECERA DEL PERFIL (FOTO + NOMBRE) */}
                 <div className="profile-header-center" style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    <div className="profile-avatar-large" style={{ 
+                    <div className="profile-avatar-large" style={{
                         width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#2a9d8f', color: 'white',
                         fontSize: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 15px auto'
                     }}>
@@ -122,8 +127,8 @@ function Profile() {
                     <div className="name-container">
                         {isEditingName ? (
                             <div className="inline-edit-box" style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
-                                <input 
-                                    type="text" 
+                                <input
+                                    type="text"
                                     value={tempName}
                                     onChange={(e) => setTempName(e.target.value)}
                                     className="name-input"
@@ -136,9 +141,6 @@ function Profile() {
                         ) : (
                             <h1 className="profile-name">
                                 {user?.nombre || 'Usuario'}
-                                <span onClick={startEditingName} className="edit-pen" title="Editar nombre" style={{ cursor: 'pointer', marginLeft: '10px', fontSize: '1rem', color: '#888' }}>
-                                    ✎
-                                </span>
                             </h1>
                         )}
                         <p style={{ color: '#666', fontSize: '0.9rem' }}>{user?.email}</p>
@@ -202,17 +204,19 @@ function Profile() {
 
                 {/* ACCIONES */}
                 <div className="account-actions">
-                    <button className="btn-edit" onClick={() => setIsEditing(true)}>⚙️ Editar Perfil Completo</button>
+                    <button className="btn-edit" onClick={() => setIsEditing(true)}> Editar Perfil Completo</button>
                     <button className="btn-logout" onClick={handleLogout}>Cerrar Sesión</button>
                 </div>
             </div>
 
             {/* MODAL DE EDICIÓN - VENTANA EMERGENTE */}
+            // Dentro de Profile.js, reemplaza la sección del modal con esto:
+
             {isEditing && (
-                <div className="modal-overlay"> {/* Fondo oscuro que cubre toda la pantalla */}
-                    <div className="modal"> {/* El contenedor de la ventana emergente */}
+                <div className="modal-overlay">
+                    <div className="modal">
                         <h2>Editar Perfil</h2>
-                        <form onSubmit={handleSaveProfile}>
+                        <form className="edit-profile-form" onSubmit={handleSaveProfile}>
                             <label>
                                 Nombre
                                 <input
@@ -235,7 +239,30 @@ function Profile() {
                                 />
                             </label>
 
-                            <div className="modal-actions">
+                            {/* --- SECCIÓN OLVIDÉ MI CONTRASEÑA --- */}
+                            <div style={{ marginTop: '15px', textAlign: 'center' }}>
+                                <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '5px' }}>¿Olvidaste tu contraseña?</p>
+                                <button
+                                    type="button"
+                                    onClick={async () => {
+                                        try {
+                                            await dataService.forgotPassword(user.email);
+                                            alert('Se ha enviado un enlace de recuperación a tu correo.');
+                                            //showNotif('Se ha enviado un enlace de recuperación a tu correo.', 'success', 'Enlace Enviado');
+                                        } catch (err) {
+                                            console.error(err);
+                                            alert('Hubo un problema al enviar el enlace. Intenta de nuevo.');
+                                            //showNotif('Hubo un problema al enviar el enlace. Intenta de nuevo.', 'error', 'Error');
+                                        }
+                                    }}
+                                    className="btn-secondary"
+                                    style={{ padding: '8px 12px', fontSize: '0.85rem' }}
+                                >
+                                    Enviar enlace de recuperación
+                                </button>
+                            </div>
+
+                            <div className="modal-actions" style={{ marginTop: '20px' }}>
                                 <button type="button" onClick={() => setIsEditing(false)} className="btn-secondary">
                                     Cancelar
                                 </button>
