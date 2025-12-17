@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import authService from '../services/api'
-import '../styles/RegisterPage.css'
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom'; // <--- AQUÍ ESTABA EL DETALLE (Faltaba Link)
+import { useAuth } from '../contexts/AuthContext';
+import authService from '../services/api';
+import '../styles/RegisterPage.css';
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -10,59 +10,60 @@ function RegisterPage() {
     email: '',
     password: '',
     confirmPassword: ''
-  })
-  const [isLoading, setIsLoading] = useState(false)
-  const [passwordMatch, setPasswordMatch] = useState(true)
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
-  const { login } = useAuth()
+  });
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
-    }))
+    }));
     
     if (name === 'confirmPassword' || name === 'password') {
-      const pass = name === 'password' ? value : formData.password
-      const confirm = name === 'confirmPassword' ? value : formData.confirmPassword
-      setPasswordMatch(pass === confirm)
+      const pass = name === 'password' ? value : formData.password;
+      const confirm = name === 'confirmPassword' ? value : formData.confirmPassword;
+      setPasswordMatch(pass === confirm);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError('');
     
     if (formData.password !== formData.confirmPassword) {
-      setPasswordMatch(false)
-      setError('Las contraseñas no coinciden')
-      return
+      setPasswordMatch(false);
+      setError('Las contraseñas no coinciden');
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
       const response = await authService.register(
         formData.nombre,
         formData.email,
         formData.password
-      )
+      );
 
       login(response.token, {
         _id: response._id,
         nombre: response.nombre,
         email: response.email
-      })
+      });
 
-      navigate('/dashboard')
+      navigate('/dashboard');
     } catch (err) {
-      setError(err.message || 'Error al crear la cuenta')
+      setError(err.message || 'Error al crear la cuenta');
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="register-container">
@@ -134,10 +135,17 @@ function RegisterPage() {
             {!passwordMatch && <span className="error-message">Las contraseñas no coinciden</span>}
           </div>
 
+          {/* SECCIÓN TÉRMINOS Y CONDICIONES (Centrado y con Link) */}
           <div className="terms">
             <label className="terms-checkbox">
-              <input type="checkbox" required disabled={isLoading} />
-              Acepto los <a href="#" className="terms-link">términos y condiciones</a>
+              <input 
+                  type="checkbox" 
+                  required 
+                  disabled={isLoading} 
+              />
+              <span>
+                  Acepto los <Link to="/terms" className="terms-link">términos y condiciones</Link>
+              </span>
             </label>
           </div>
 
@@ -155,7 +163,7 @@ function RegisterPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default RegisterPage
+export default RegisterPage;

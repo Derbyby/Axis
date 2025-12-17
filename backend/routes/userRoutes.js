@@ -5,10 +5,14 @@ const router = express.Router();
 const { registerUser, loginUser } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 const User = require('../models/user.js'); 
+const { forgotPassword, resetPassword } = require('../controllers/userController');
 
 // 1. Registro y Login
 router.post('/', registerUser);
 router.post('/login', loginUser);
+
+router.post('/forgot-password', forgotPassword);
+router.put('/reset-password/:token', resetPassword);
 
 // --- [NUEVO] RUTA RANKING (TOP 10) ---
 // ¡IMPORTANTE! Esta ruta debe ir ANTES de las rutas con :id

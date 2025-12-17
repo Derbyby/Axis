@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const sendEmail = require('../utils/sendEmail');
 
 // 1. BUSCAR USUARIOS (Para agregar amigos)
 const searchUsers = async (req, res) => {
@@ -52,6 +53,16 @@ const sendFriendRequest = async (req, res) => {
         await targetUser.save();
 
         res.json({ message: 'Solicitud enviada correctamente' });
+
+        try {
+            await sendEmail({
+                email: friend.email, // El correo del amigo
+                subject: '¡Nueva solicitud de amistad en Axis!',
+                message: `<h1>¡Hola ${friend.nombre}!</h1><p>${req.user.nombre} quiere ser tu amigo en Axis.</p>`
+            });
+        } catch (error) {
+            console.log("No se pudo enviar el correo de notificación, pero la solicitud se guardó.");
+        }
 
     } catch (error) {
         console.error(error);

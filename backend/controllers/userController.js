@@ -1,6 +1,8 @@
 // backend/controllers/userController.js
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+const sendEmail = require('../utils/sendEmail');
 const User = require('../models/user.js'); // Importamos el modelo
 
 // @desc    Registrar un nuevo usuario
@@ -130,8 +132,91 @@ const updateUser = async (req, res) => {
     }
 };
 
+// --- OLVIDÉ MI CONTRASEÑA (Solicitar Link) ---
+const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) return res.status(404).json({ message: 'No existe un usuario con ese email' });
+
+        // Generar token
+        const resetToken = crypto.randomBytes(20).toString('hex');
+
+        // Hashear token y guardarlo en la BD
+        user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+        user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // Expira en 10 minutos
+
+        await user.save({ validateBeforeSave: false });
+
+        // Crear URL de reseteo (apunta al Frontend)
+        const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+
+        const message = `
+            <h1>Recuperación de Contraseña</h1>
+            <p>Has solicitado restablecer tu contraseña en Axis.</p>
+            <p>Haz clic en el siguiente enlace:</p>
+            <a href="${resetUrl}" clicktracking=off>${resetUrl}</a>
+            <p>Si no fuiste tú, ignora este correo.</p>
+        `;
+
+        try {
+            await sendEmail({
+                email: user.email,
+                subject: 'Axis - Recuperar Contraseña',
+                message
+            });
+            res.status(200).json({ success: true, data: 'Correo enviado' });
+        } catch (err) {
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpire = undefined;
+            await user.save({ validateBeforeSave: false });
+            return res.status(500).json({ message: 'El correo no se pudo enviar' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// --- RESTABLECER CONTRASEÑA (Poner la nueva) ---
+const resetPassword = async (req, res) => {
+    // 1. Hasheamos el token que viene de la URL para compararlo con el de la BD
+    const resetToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+    try {
+        // 2. Buscamos al usuario con ese token y que no haya expirado
+        const user = await User.findOne({
+            resetPasswordToken: resetToken,
+            resetPasswordExpire: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ message: 'Token inválido o ha expirado' });
+        }
+
+        // 3. ENCRIPTAR LA NUEVA CONTRASEÑA (Aquí estaba el fallo)
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(req.body.password, salt);
+
+        // 4. Limpiamos los tokens de recuperación
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        // 5. Guardamos
+        await user.save();
+
+        res.status(200).json({ success: true, data: 'Contraseña actualizada con éxito' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al restablecer contraseña' });
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
-    updateUser
+    updateUser,
+    forgotPassword, 
+    resetPassword
 };

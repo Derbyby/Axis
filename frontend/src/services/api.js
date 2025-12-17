@@ -163,6 +163,25 @@ export const dataService = {
   getUserStats: async (userId) => {
     return apiCall(`/users/stats/${userId}`);
   },
+
+  // --- RECUPERACIÓN DE CONTRASEÑA ---
+  
+  // 1. Solicitar correo de recuperación
+  forgotPassword: async (email) => {
+    // Nota: apiCall ya se encarga de los headers y JSON.stringify si le pasas el objeto directo
+    return apiCall('/users/forgot-password', { 
+        method: 'POST', 
+        body: JSON.stringify({ email }) 
+    });
+  },
+
+  // 2. Enviar nueva contraseña
+  resetPassword: async (token, password) => {
+    return apiCall(`/users/reset-password/${token}`, { 
+        method: 'PUT', 
+        body: JSON.stringify({ password }) 
+    });
+  }
 };
 
 export default authService;

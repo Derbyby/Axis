@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import authService from '../services/api'
 import '../styles/LoginPage.css'
@@ -79,7 +79,9 @@ function LoginPage() {
               <input type="checkbox" disabled={isLoading} />
               Recuérdame
             </label>
-            <a href="#" className="forgot-password">¿Olvidaste tu contraseña?</a>
+            <Link to="/forgot-password" style={{ color: '#4F46E5', fontSize: '0.9rem', textDecoration: 'none' }}>
+              ¿Olvidaste tu contraseña?
+            </Link>
           </div>
 
           <button

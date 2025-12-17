@@ -1,3 +1,4 @@
+/* src/styles/RegisterPage.css */
 * {
   margin: 0;
   padding: 0;
@@ -20,218 +21,81 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 480px;
-  padding: 50px 40px;
-  animation: slideUp 0.5s ease-out;
+  padding: 40px;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.register-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
+.register-header { text-align: center; margin-bottom: 30px; }
+.register-header h1 { color: #2d3748; font-size: 28px; font-weight: 700; margin-bottom: 5px; }
+.subtitle { color: #718096; font-size: 14px; }
 
 .logo-icon {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 20px;
+  width: 60px; height: 60px; margin: 0 auto 15px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  color: white;
-  font-weight: bold;
-}
-
-.register-header h1 {
-  color: #2d3748;
-  font-size: 28px;
-  margin-bottom: 8px;
-  font-weight: 700;
-}
-
-.subtitle {
-  color: #718096;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 50%; color: white; font-size: 30px;
+  display: flex; align-items: center; justify-content: center; font-weight: bold;
 }
 
 .error-banner {
-  background: #fee;
-  border-left: 4px solid #f56565;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  color: #c53030;
-  font-size: 14px;
-  font-weight: 500;
+  background: #fff5f5; border-left: 4px solid #fc8181;
+  color: #c53030; padding: 10px; border-radius: 4px; margin-bottom: 20px; font-size: 0.9rem;
 }
 
-.login-form {
-  margin-bottom: 30px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: #2d3748;
-  font-weight: 600;
-  font-size: 14px;
-}
+/* --- INPUTS (Forzamos color blanco) --- */
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; color: #4a5568; font-weight: 600; font-size: 0.9rem; }
 
 .form-group input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px;
   border: 2px solid #e2e8f0;
   border-radius: 10px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  font-family: inherit;
+  font-size: 1rem;
+  /* IMPORTANTE: Esto arregla el fondo negro */
+  background-color: #ffffff !important; 
+  color: #333333 !important;
 }
 
-.form-group input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
+.form-group input:focus { border-color: #667eea; outline: none; }
+.form-group input.error { border-color: #e53e3e; }
+.error-message { color: #e53e3e; font-size: 0.8rem; margin-top: 5px; display: block; }
 
-.form-group input::placeholder {
-  color: #a0aec0;
-}
-
-.form-group input.error {
-  border-color: #f56565;
-}
-
-.form-group input.error:focus {
-  box-shadow: 0 0 0 3px rgba(245, 101, 101, 0.1);
-}
-
-.form-group input::placeholder {
-  color: #a0aec0;
-}
-
-.error-message {
-  display: block;
-  color: #f56565;
-  font-size: 12px;
-  margin-top: 6px;
-  font-weight: 500;
-}
-
+/* --- TÉRMINOS Y CONDICIONES (Centrado Perfecto) --- */
 .terms {
-  margin-bottom: 25px;
+  margin: 20px 0;
+  display: flex;         /* Activa flexbox */
+  justify-content: center; /* Centra horizontalmente */
 }
 
 .terms-checkbox {
   display: flex;
-  align-items: flex-start;
+  align-items: center;   /* Alinea verticalmente checkbox y texto */
+  gap: 10px;            /* Espacio entre checkbox y texto */
   cursor: pointer;
+  font-size: 0.9rem;
   color: #4a5568;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 1.5;
 }
 
 .terms-checkbox input {
-  width: auto;
-  margin-right: 10px;
-  margin-top: 2px;
-  cursor: pointer;
+  width: 20px !important;  /* Tamaño fijo para el checkbox */
+  height: 20px !important; 
+  margin: 0;
   accent-color: #667eea;
-  flex-shrink: 0;
-}
-
-.terms-link {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.terms-link:hover {
-  color: #764ba2;
-  text-decoration: underline;
-}
-
-.register-button {
-  width: 100%;
-  padding: 13px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-.register-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+.terms-link { color: #667eea; text-decoration: none; font-weight: 600; margin-left: 3px; }
+.terms-link:hover { text-decoration: underline; }
+
+/* --- BOTONES Y FOOTER --- */
+.register-button {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white; border: none; border-radius: 10px;
+  font-size: 1rem; font-weight: 600; cursor: pointer;
+  transition: transform 0.2s;
 }
+.register-button:hover:not(:disabled) { transform: translateY(-2px); }
+.register-button:disabled { opacity: 0.7; cursor: not-allowed; }
 
-.register-button:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.register-button:disabled {
-  opacity: 0.8;
-  cursor: not-allowed;
-}
-
-.register-footer {
-  text-align: center;
-  border-top: 1px solid #e2e8f0;
-  padding-top: 20px;
-}
-
-.register-footer p {
-  color: #4a5568;
-  font-size: 14px;
-}
-
-.login-link {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.login-link:hover {
-  color: #764ba2;
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-  .register-box {
-    padding: 40px 25px;
-  }
-
-  .register-header h1 {
-    font-size: 24px;
-  }
-
-  .logo-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 32px;
-  }
-}
+.register-footer {color: #333333; text-align: center; margin-top: 25px; pt: 20px; border-top: 1px solid #edf2f7; }
+.login-link { color: #667eea; font-weight: 600; text-decoration: none; }

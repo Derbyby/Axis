@@ -25,6 +25,10 @@ const userSchema = mongoose.Schema({
         ref: 'User' 
     }],
     
+    //RESET PASSWORD
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
+
     preferencias: {
         tema: { type: String, enum: ['claro', 'oscuro'], default: 'claro' } //
     }
