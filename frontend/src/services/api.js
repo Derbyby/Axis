@@ -1,9 +1,9 @@
 const API_URL = 'http://localhost:5000/api';
 
-// Función helper para hacer peticiones
+// --- 1. FUNCIÓN HELPER (Fetch Wrapper) ---
 const apiCall = async (endpoint, options = {}) => {
   const token = localStorage.getItem('token');
-  
+
   const headers = {
     'Content-Type': 'application/json',
     ...options.headers
@@ -13,21 +13,27 @@ const apiCall = async (endpoint, options = {}) => {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${API_URL}${endpoint}`, {
-    ...options,
-    headers
-  });
+  try {
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      ...options,
+      headers
+    });
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (!response.ok) {
-    throw new Error(data.message || 'Error en la petición');
+    if (!response.ok) {
+      // Lanzamos error con el mensaje del backend o uno genérico
+      throw new Error(data.message || 'Error en la petición');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('API Call Error:', error);
+    throw error;
   }
-
-  return data;
 };
 
-// Servicio de autenticación
+// --- 2. SERVICIO DE AUTENTICACIÓN ---
 export const authService = {
   register: async (nombre, email, password) => {
     return apiCall('/users', {
@@ -63,23 +69,117 @@ export const authService = {
   }
 };
 
+// --- 3. SERVICIO DE DATOS (Tareas y Hábitos) ---
 export const dataService = {
-  getHabits: async () => {
-    return apiCall('/habits'); 
-  },
 
+  // --- TAREAS ---
   getTasks: async () => {
-    return apiCall('/tasks');
-  },
-
-  checkHabit: async (id) => {
-    return apiCall(`/habits/${id}/check`, { method: 'PUT' });
+    return apiCall('/tasks'); // GET por defecto
   },
 
   createTask: async (taskData) => {
     return apiCall('/tasks', {
       method: 'POST',
       body: JSON.stringify(taskData)
+    });
+  },
+
+  updateTask: async (id, data) => {
+    return apiCall(`/tasks/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  },
+
+  deleteTask: async (id) => {
+    return apiCall(`/tasks/${id}`, {
+      method: 'DELETE'
+    });
+  },
+
+  // --- HÁBITOS ---
+  getHabits: async () => {
+    return apiCall('/habits');
+  },
+
+  createHabit: async (habitData) => {
+    return apiCall('/habits', {
+      method: 'POST',
+      body: JSON.stringify(habitData)
+    });
+  },
+
+  // Usamos PUT para actualizar (completar, cambiar título, racha, etc.)
+  updateHabit: async (id, data) => {
+    return apiCall(`/habits/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  },
+
+  deleteHabit: async (id) => {
+    return apiCall(`/habits/${id}`, {
+      method: 'DELETE'
+    });
+  },
+
+  updateUser: async (id, userData) => {
+    return apiCall(`/users/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(userData)
+    });
+  },
+
+  //-----SOCIAL------
+  // 1. Buscar usuarios por nombre o email
+  searchUser: async (query) => {
+    return apiCall(`/social/search?q=${query}`);
+  },
+  
+  // 2. Enviar solicitud de amistad
+  sendFriendRequest: async (userId) => {
+    return apiCall(`/social/request/${userId}`, { method: 'POST' });
+  },
+
+  // 3. Ver mis solicitudes pendientes
+  getFriendRequests: async () => {
+    return apiCall('/social/requests');
+  },
+
+  // 4. Aceptar una solicitud
+  acceptFriendRequest: async (requesterId) => {
+    return apiCall(`/social/accept/${requesterId}`, { method: 'PUT' });
+  },
+
+  // 5. Ver mi lista de amigos
+  getFriends: async () => {
+    return apiCall('/social/friends');
+  },
+
+  getRanking: async () => {
+    return apiCall('/users/ranking');
+  },
+
+  getUserStats: async (userId) => {
+    return apiCall(`/users/stats/${userId}`);
+  },
+
+  // --- RECUPERACIÓN DE CONTRASEÑA ---
+  
+  // 1. Solicitar correo de recuperación
+  forgotPassword: async (email) => {
+    // Nota: apiCall ya se encarga de los headers y JSON.stringify si le pasas el objeto directo
+    return apiCall('/users/forgot-password', { 
+        method: 'POST', 
+        body: JSON.stringify({ email }) 
+    });
+  },
+
+  // 2. Enviar nueva contraseña
+  resetPassword: async (token, password) => {
+    return apiCall(`/users/reset-password/${token}`, { 
+        method: 'PUT', 
+        body: JSON.stringify({ password }) 
     });
   }
 };

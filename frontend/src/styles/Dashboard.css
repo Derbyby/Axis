@@ -519,3 +519,103 @@ button {
         grid-template-columns: 1fr;
     }
 }
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre el botón comunidad y el perfil */
+}
+
+.btn-community {
+    background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); /* Índigo */
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.btn-community:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+}
+
+/* --- CENTRO DE NOTIFICACIONES --- */
+.notification-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-btn {
+    background: white;
+    border: none;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+}
+
+.notification-btn:hover {
+    transform: scale(1.1);
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e63946; /* Rojo alerta */
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+
+/* Menú Desplegable */
+.notification-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 300px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    color: #2d3748;
+    padding: 15px;
+    z-index: 1000;
+    border: 1px solid #eee;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.notification-item {
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item strong {
+    color: #2a9d8f;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
