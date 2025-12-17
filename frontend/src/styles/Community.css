@@ -6,18 +6,21 @@
     margin: 30px auto;
     padding: 20px;
     font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .back-link {
     display: inline-block;
     margin-bottom: 20px;
-    color: #4a6c9a;
+    color: var(--color-primary-dark);
     text-decoration: none;
     font-weight: 600;
+    transition: var(--transition);
 }
 
 .back-link:hover {
-    text-decoration: underline;
+    color: var(--color-primary-light);
+    transform: translateX(-5px);
 }
 
 /* === LAYOUT DE GRID (COLUMNAS) === */
@@ -37,20 +40,20 @@
 
 /* === TARJETAS GENERALES === */
 .card {
-    background: #ffffff;
+    background: var(--color-card-bg);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    border: 1px solid #f0f4f8;
+    box-shadow: var(--shadow-base);
+    border: 1px solid rgba(167, 201, 87, 0.1);
 }
 
 /* Títulos de las tarjetas */
 .card h2 {
     font-size: 1.2rem;
     margin-bottom: 15px;
-    color: #2d3748;
-    border-bottom: 2px solid #f0f4f8;
+    color: var(--color-heading);
+    border-bottom: 2px solid var(--color-bg-light);
     padding-bottom: 10px;
 }
 
@@ -71,14 +74,19 @@
     box-sizing: border-box; /* El borde se incluye dentro de los 42px */
     
     padding: 0 15px;    
-    border: 1px solid #d9e2ec; /* Borde gris suave */
+    border: 2px solid var(--color-bg-dark) !important;
     border-radius: 8px;
     outline: none;
     
     /* Estilo visual (Ajustado a negro oscuro como en tu foto si prefieres, o blanco limpio) */
-    background-color: #1a202c; /* Fondo oscuro (según tu imagen) */
-    color: white;
+    background-color: white !important; /* Forzado a blanco */
+    color: var(--color-heading) !important;
     font-size: 0.95rem;
+    transition: border-color 0.3s;
+}
+
+.search-form input:focus {
+    border-color: var(--color-primary-light);
 }
 
 .search-form button {
@@ -91,7 +99,7 @@
     
     padding: 0;         
     border-radius: 8px;
-    background-color: #2a9d8f;
+    background: var(--gradient-primary);
     color: white;
     border: none;
     cursor: pointer;
@@ -101,10 +109,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 10px rgba(106, 153, 78, 0.2);
 }
 
 .search-form button:hover {
-    background-color: #21867a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(106, 153, 78, 0.3);
 }
 
 /* === LISTAS DE RESULTADOS Y SOLICITUDES === */
@@ -113,7 +123,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    color: #1a202c;
+    color: var(--color-heading);
 }
 
 .request-item {
@@ -123,21 +133,21 @@
     align-items: center; 
     padding: 12px 15px;
     background-color: #ffffff; /* Fondo blanco */
-    border: 1px solid #eee;
-    border-radius: 8px;
+    border: 1px solid var(--color-bg-dark);
+    border-radius: 12px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-base);
 }
 
 /* Asegurar que el nombre se vea NEGRO */
 .request-item strong {
-    color: #1a202c; /* Negro oscuro */
+    color: var(--color-heading); /* Negro oscuro */
     font-size: 1rem;
     display: block; /* Para que ocupe su propia línea */
 }
 
 .request-item div {
-    color: #4a5568; /* Gris oscuro para el "Nivel 1" */
+    color: var(--color-text-subtle);
 }
 
 .result-item, .friend-item {
@@ -146,15 +156,15 @@
     justify-content: space-between; 
     align-items: center; 
     padding: 12px 15px;
-    background-color: #f9fafb;
-    border-radius: 8px;
-    border: 1px solid #eee;
+    background-color: var(--color-bg-light);
+    border-radius: 12px;
+    border: 1px solid var(--color-bg-dark);
     margin-bottom: 8px;
 }
 
 /* === BOTONES DE ACCIÓN === */
 .btn-add {
-    background-color: #4a6c9a;
+    background-color: var(--color-primary-dark);
     color: white;
     border: none;
     
@@ -170,7 +180,7 @@
     cursor: pointer;
     font-size: 0.85rem;
     font-weight: 600;
-    transition: background 0.3s;
+    transition: all 0.3s;
     
     /* Centrar texto */
     display: flex;
@@ -178,8 +188,13 @@
     justify-content: center;
 }
 
+.btn-add:hover {
+    background-color: var(--color-primary-light);
+    transform: scale(1.05);
+}
+
 .btn-accept {
-    background-color: #10b981;
+    background: var(--gradient-primary);
     color: white;
     border: none;
     
@@ -200,17 +215,22 @@
 }
 
 .btn-accept:hover {
-    background-color: #059669;
+    background-color: var(--color-primary-light);
+    transform: scale(1.05);
 }
-.btn-add:hover { background-color: #37557a; }
 
 .badge-friend {
-    background-color: #d1fae5;
-    color: #065f46;
-    padding: 4px 8px;
+    background-color: var(--color-bg-dark);
+    color: var(--color-primary-dark);
+    padding: 4px 10px;
     border-radius: 12px;
     font-size: 0.75rem;
     font-weight: bold;
+    height: 32px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: auto;
 }
 
 /* === ESTILO DE AMIGOS (AVATARES) === */
@@ -255,7 +275,8 @@
     display: flex;
     align-items: center;
     padding: 12px 10px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--color-bg-light);
+    transition: background-color 0.3s;
 }
 
 .ranking-item:last-child {
@@ -265,7 +286,7 @@
 .rank-number {
     font-weight: 800;
     width: 35px;
-    color: #a0aec0;
+    color: var(--color-text-subtle);
     font-size: 1.1rem;
 }
 
@@ -273,10 +294,12 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    color: var(--color-primary-dark); /* Puntos en verde */
+    font-weight: 700;
 }
 
 .rank-user strong {
-    color: #2d3748;
+    color: var(--color-heading);
 }
 
 .rank-user small {
@@ -293,3 +316,8 @@
 
 .rank-3 .rank-number { color: #b7791f; } /* Bronce */
 .rank-3 { border-left: 4px solid #d69e2e; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

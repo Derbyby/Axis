@@ -1,23 +1,51 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import '../styles/Terms.css';
 
-function Terms() {
+function TermsPage() {
+    const navigate = useNavigate();
+
     return (
-        <div style={{ padding: '40px', maxWidth: '800px', margin: '0 auto', fontFamily: 'sans-serif' }}>
-            <h1>Términos y Condiciones de Axis</h1>
-            <p>Última actualización: Diciembre 2025</p>
-            <hr />
-            <h3>1. Uso de Datos</h3>
-            <p>En Axis, nos tomamos tu privacidad en serio. Tus datos (correo, hábitos, tareas) se guardan en nuestra base de datos segura y no se comparten con terceros.</p>
-            
-            <h3>2. Responsabilidad</h3>
-            <p>Axis es una herramienta de autogestión. No nos hacemos responsables si olvidas papear a tus alumnos por no revisar la app.</p>
+        <div className="terms-container">
+            <div className="terms-box">
+                <header className="terms-header">
+                    <h1>Términos y Condiciones</h1>
+                    <p className="subtitle">Última actualización: Diciembre 2025</p>
+                </header>
 
-            <Link to="/register" style={{ display: 'inline-block', marginTop: '20px', padding: '10px 20px', background: '#4F46E5', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>
-                Volver al Registro
-            </Link>
+                <div className="terms-content">
+                    <section>
+                        <h2>1. Aceptación de los Términos</h2>
+                        <p>Al crear una cuenta en <strong>Axis</strong>, aceptas cumplir con estos términos de servicio, todas las leyes y regulaciones aplicables.</p>
+                    </section>
+
+                    <section>
+                        <h2>2. Uso del Servicio</h2>
+                        <p>Axis es una plataforma diseñada para la gestión de hábitos y tareas personales. Te comprometes a usar la aplicación de manera responsable y a no realizar actividades que puedan comprometer la seguridad de otros usuarios.</p>
+                    </section>
+
+                    <section>
+                        <h2>3. Privacidad y Datos</h2>
+                        <p>Tu privacidad es nuestra prioridad. Los datos personales como nombre y correo electrónico se utilizan exclusivamente para la funcionalidad de la cuenta y no serán compartidos con terceros sin tu consentimiento.</p>
+                    </section>
+
+                    <section>
+                        <h2>4. Responsabilidad</h2>
+                        <p>Axis no se hace responsable por la pérdida de datos derivada de un uso inadecuado o fallos técnicos ajenos a nuestra infraestructura principal.</p>
+                    </section>
+                </div>
+
+                <div className="terms-footer">
+                    <button 
+                        className="btn-back" 
+                        onClick={() => navigate('/register')}
+                    >
+                        Volver al Registro
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }
 
-export default Terms;
+export default TermsPage;

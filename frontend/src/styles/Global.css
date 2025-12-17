@@ -1,0 +1,36 @@
+:root {
+  --bg-soft: #f4f7f1;          /* Verde casi blanco, muy relajante */
+  --bg-card: #ffffff;
+  --primary-mint: #a7c957;     /* Verde menta */
+  --primary-dark: #6a994e;     /* Verde bosque suave */
+  --accent-sage: #f2e8cf;      /* Crema salvia para resaltar */
+  --text-main: #386641;        /* Texto verde muy oscuro */
+  --text-muted: #7f9c85;       /* Texto secundario */
+  --error: #bc4749;            /* Rojo pastel */
+  --radius: 16px;              /* Bordes más redondeados para suavidad */
+  --shadow: 0 10px 30px rgba(56, 102, 65, 0.05);
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animación de entrada suave */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-view {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+body {
+  background-color: var(--bg-soft);
+  color: var(--text-main);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
